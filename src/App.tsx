@@ -15,6 +15,7 @@ function App() {
   const [nextSequence, setNextSequence] = useState<number>(1);
   const [groupPoints, setGroupPoints] = useState<Array<{id: number, name: string, lat: number, lng: number, sequence: number, referencia?: string}>>([]);
   const [paginationStart, setPaginationStart] = useState<number>(0);
+  const [selectedAction, setSelectedAction] = useState<string>('');
 
   // Calculate statistics
   const statistics = useMemo(() => calculateStatistics(segments), [segments]);
@@ -170,6 +171,7 @@ function App() {
     // Clear previous searches when switching menu items
     setSelectedSegment(null);
     setSearchQuery('');
+    setSelectedAction('');
     
     // Unhighlight any selected segment
     if ((window as any).unhighlightSegment) {
@@ -257,8 +259,10 @@ function App() {
           setGroupPoints={setGroupPoints}
           paginationStart={paginationStart}
           setPaginationStart={setPaginationStart}
+          selectedAction={selectedAction}
+          setSelectedAction={setSelectedAction}
         />
-        <div className="main-content">
+        <div className={`main-content ${activeMenu === 'Manejar segmentos' && selectedAction ? 'split-layout' : ''}`}>
           <MapComponent
             segments={segments}
             onSegmentClick={handleSegmentClick}
