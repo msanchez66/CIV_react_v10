@@ -18,6 +18,8 @@ interface SidebarProps {
   groupPoints: Array<{id: number, name: string, lat: number, lng: number, sequence: number, referencia?: string}>;
   setGroupPoints: React.Dispatch<React.SetStateAction<Array<{id: number, name: string, lat: number, lng: number, sequence: number, referencia?: string}>>>;
   paginationStart: number;
+  selectedAction: string;
+  setSelectedAction: React.Dispatch<React.SetStateAction<string>>;
   setPaginationStart: React.Dispatch<React.SetStateAction<number>>;
 }
 
