@@ -38,7 +38,9 @@ const Sidebar: React.FC<SidebarProps> = ({
   groupPoints,
   setGroupPoints,
   paginationStart,
-  setPaginationStart
+  setPaginationStart,
+  selectedAction,
+  setSelectedAction
 }) => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [municipality, setMunicipality] = useState<string>('DNX');
