@@ -602,7 +602,6 @@ const Sidebar: React.FC<SidebarProps> = ({
     }
   };
 
-  const [selectedAction, setSelectedAction] = useState<'actualizar' | 'ver'>('actualizar');
 
   return (
     <div className="sidebar">
