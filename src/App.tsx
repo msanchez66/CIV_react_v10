@@ -13,6 +13,8 @@ function App() {
   const [activeMenu, setActiveMenu] = useState<string>('Home');
   const [pointsList, setPointsList] = useState<Array<{id: number, name: string, lat: number, lng: number, sequence: number, referencia?: string}>>([]);
   const [nextSequence, setNextSequence] = useState<number>(1);
+  const [groupPoints, setGroupPoints] = useState<Array<{id: number, name: string, lat: number, lng: number, sequence: number, referencia?: string}>>([]);
+  const [paginationStart, setPaginationStart] = useState<number>(0);
 
   // Calculate statistics
   const statistics = useMemo(() => calculateStatistics(segments), [segments]);
@@ -43,13 +45,13 @@ function App() {
     setPointsList(prev => [...prev, newPoint]);
     setNextSequence(prev => prev + 1);
     
-    // Add marker to map
+    // Add marker to map (blue marker for individual points)
     if ((window as any).addMarkerToMapWithSequence) {
       (window as any).addMarkerToMapWithSequence(newPoint.lat, newPoint.lng, newPoint.name, newPoint.id, newPoint.sequence);
     }
   }, [nextSequence]);
 
-  // Handle uploading multiple points
+  // Handle uploading multiple points (for Localización grupal)
   const handleUploadPoints = useCallback((points: Array<{lat: number, lng: number, name?: string, referencia?: string}>) => {
     const newPoints = points.map((point, index) => ({
       id: Date.now() + index,
@@ -60,18 +62,22 @@ function App() {
       referencia: point.referencia || `REF-${(nextSequence + index).toString().padStart(8, '0')}`
     }));
     
-    setPointsList(prev => [...prev, ...newPoints]);
+    // Add to group points for "Localización grupal" only
+    setGroupPoints(prev => [...prev, ...newPoints]);
     setNextSequence(prev => prev + points.length);
     
-    // Add markers to map
-    if ((window as any).addMarkersToMap) {
-      (window as any).addMarkersToMap(newPoints);
-    }
+    // Add markers to map with sequence numbers
+    newPoints.forEach(point => {
+      if ((window as any).addMarkerToMapWithSequence) {
+        (window as any).addMarkerToMapWithSequence(point.lat, point.lng, point.name, point.id, point.sequence);
+      }
+    });
   }, [nextSequence]);
 
   // Handle deleting a point
   const handleDeletePoint = useCallback((pointId: number) => {
     setPointsList(prev => prev.filter(point => point.id !== pointId));
+    setGroupPoints(prev => prev.filter(point => point.id !== pointId));
     
     // Remove marker from map
     if ((window as any).removeMarkerFromMap) {
@@ -247,6 +253,10 @@ function App() {
           onUploadPoints={handleUploadPoints}
           pointsList={pointsList}
           onDeletePoint={handleDeletePoint}
+          groupPoints={groupPoints}
+          setGroupPoints={setGroupPoints}
+          paginationStart={paginationStart}
+          setPaginationStart={setPaginationStart}
         />
         <div className="main-content">
           <MapComponent

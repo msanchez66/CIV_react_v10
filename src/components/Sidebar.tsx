@@ -15,6 +15,10 @@ interface SidebarProps {
   pointsList: Array<{id: number, name: string, lat: number, lng: number, sequence: number, referencia?: string}>;
   onDeletePoint: (pointId: number) => void;
   onFillCoordinates?: (lat: number, lng: number) => void;
+  groupPoints: Array<{id: number, name: string, lat: number, lng: number, sequence: number, referencia?: string}>;
+  setGroupPoints: React.Dispatch<React.SetStateAction<Array<{id: number, name: string, lat: number, lng: number, sequence: number, referencia?: string}>>>;
+  paginationStart: number;
+  setPaginationStart: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ 
@@ -30,10 +34,13 @@ const Sidebar: React.FC<SidebarProps> = ({
   onUploadPoints,
   pointsList,
   onDeletePoint,
-  onFillCoordinates
+  onFillCoordinates,
+  groupPoints,
+  setGroupPoints,
+  paginationStart,
+  setPaginationStart
 }) => {
   const [isDragOver, setIsDragOver] = useState(false);
-  const [groupPoints, setGroupPoints] = useState<Array<{id: number, name: string, lat: number, lng: number, sequence: number, referencia?: string}>>([]);
   const [municipality, setMunicipality] = useState<string>('DNX');
   const [code, setCode] = useState<string>('');
   
@@ -132,15 +139,20 @@ const Sidebar: React.FC<SidebarProps> = ({
     const reportData = groupPoints.map(point => {
       const closest = calculateClosestSegment(point);
       return {
-        'Vía asignada': closest.segmentCode,
-        'Nombre de la vía': closest.streetName || 'N/A'
+        'No': point.sequence,
+        'Ref punto': point.referencia || point.name,
+        'Nombre calle': closest.streetName || 'N/A',
+        'Segment code': closest.segmentCode,
+        'Distance': closest.distance,
+        'Latitude': point.lat,
+        'Longitude': point.lng
       };
     });
     
     // Create CSV content
     const csvContent = [
-      'Vía asignada,Nombre de la vía',
-      ...reportData.map(row => `"${row['Vía asignada']}","${row['Nombre de la vía']}"`)
+      'No,Ref punto,Nombre calle,Segment code,Distance,Latitude,Longitude',
+      ...reportData.map(row => `"${row['No']}","${row['Ref punto']}","${row['Nombre calle']}","${row['Segment code']}","${row['Distance']}","${row['Latitude']}","${row['Longitude']}"`)
     ].join('\n');
     
     // Download file
@@ -209,10 +221,10 @@ const Sidebar: React.FC<SidebarProps> = ({
     const reportData = pointsList.map((point) => {
       let closestSegment = 'N/A';
       let distance = 'N/A';
+      let closestSeg = null;
       
       if (segments.length > 0) {
         let minDistance = Infinity;
-        let closestSeg = null;
         
         // Haversine distance function
         const haversineDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
@@ -318,7 +330,8 @@ const Sidebar: React.FC<SidebarProps> = ({
       
       return {
         No: point.sequence,
-        Name: point.name,
+        'Ref punto': point.referencia || point.name,
+        'Nombre calle': closestSeg ? (closestSeg.street_name || closestSeg.name || 'N/A') : 'N/A',
         'Segment code': closestSegment,
         Distance: distance,
         Latitude: point.lat,
@@ -328,9 +341,9 @@ const Sidebar: React.FC<SidebarProps> = ({
 
     // Create CSV content
     const csvContent = [
-      'No,Name,Segment code,Distance,Latitude,Longitude',
+      'No,Ref punto,Nombre calle,Segment code,Distance,Latitude,Longitude',
       ...reportData.map(point => 
-        `${point.No},"${point.Name}","${point['Segment code']}","${point.Distance}",${point.Latitude},${point.Longitude}`
+        `${point.No},"${point['Ref punto']}","${point['Nombre calle']}","${point['Segment code']}","${point.Distance}",${point.Latitude},${point.Longitude}`
       )
     ].join('\n');
 
@@ -871,7 +884,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             </div>
           </div>
 
-          {/* Points Table */}
+          {/* Points Table with Pagination */}
           {groupPoints.length > 0 && (
             <div className="points-table-section">
               <h5>Puntos Cargados ({groupPoints.length})</h5>
@@ -886,7 +899,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                     </tr>
                   </thead>
                   <tbody>
-                    {groupPoints.map((point) => (
+                    {groupPoints.slice(paginationStart, paginationStart + 5).map((point) => (
                       <tr key={point.id}>
                         <td>{point.sequence}</td>
                         <td>{point.referencia || 'N/A'}</td>
@@ -907,6 +920,26 @@ const Sidebar: React.FC<SidebarProps> = ({
                     ))}
                   </tbody>
                 </table>
+                
+                {/* Pagination Controls */}
+                {groupPoints.length > 5 && (
+                  <div className="pagination-controls">
+                    <p>Mostrando 5 de {groupPoints.length} puntos</p>
+                    <div className="pagination-slider">
+                      <input
+                        type="range"
+                        min="0"
+                        max={Math.max(0, groupPoints.length - 5)}
+                        step="1"
+                        className="pagination-slider-input"
+                        onChange={(e) => {
+                          const startIndex = parseInt(e.target.value);
+                          setPaginationStart(startIndex);
+                        }}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
               
               {/* Report Button */}
@@ -916,6 +949,20 @@ const Sidebar: React.FC<SidebarProps> = ({
                   onClick={generateReport}
                 >
                   📊 Generar Reporte
+                </button>
+              </div>
+              
+              {/* Clear Points Button */}
+              <div className="clear-points-section">
+                <button 
+                  className="clear-points-btn"
+                  onClick={() => {
+                    setGroupPoints([]);
+                    // Clear all points from map
+                    groupPoints.forEach(point => onDeletePoint(point.id));
+                  }}
+                >
+                  🗑️ Borrar puntos
                 </button>
               </div>
             </div>

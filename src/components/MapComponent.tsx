@@ -436,6 +436,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ segments, onSegmentClick, l
   const addMarkerToMapWithSequence = useCallback((lat: number, lng: number, name: string, pointId: number, sequence?: number) => {
     if (!mapInstanceRef.current || !markersLayerRef.current) return;
 
+    // Use default blue marker (no custom icon needed)
     const marker = L.marker([lat, lng]).addTo(markersLayerRef.current);
     
     // Calculate closest segment for the popup - PROPER HAVERSINE APPROACH
@@ -623,7 +624,16 @@ const MapComponent: React.FC<MapComponentProps> = ({ segments, onSegmentClick, l
     // Calculate closest segment and create popup
     const result = calculateClosestForPopup();
     const streetName = result.streetName || 'N/A';
-    marker.bindPopup(`<b>${name}</b><br>Lat: ${lat.toFixed(6)}<br>Lng: ${lng.toFixed(6)}<br><b>Closest Segment:</b> ${result.segmentCode}<br><b>Street Name:</b> ${streetName}<br><b>Distance:</b> ${result.distance}`);
+    marker.bindPopup(`
+      <div style="font-family: Arial, sans-serif; font-size: 12px; line-height: 1.4;">
+        <div style="font-weight: bold; font-size: 14px; margin-bottom: 8px;">${name}</div>
+        <div style="margin-bottom: 4px;"><strong>Lat:</strong> ${lat.toFixed(6)}</div>
+        <div style="margin-bottom: 4px;"><strong>Lng:</strong> ${lng.toFixed(6)}</div>
+        <div style="margin-bottom: 4px;"><strong>Closest Segment:</strong> ${result.segmentCode}</div>
+        <div style="margin-bottom: 4px;"><strong>Street Name:</strong> ${streetName}</div>
+        <div style="margin-bottom: 4px;"><strong>Distance:</strong> ${result.distance}</div>
+      </div>
+    `);
     
     // Add sequence number as a label if provided
     if (sequence) {
