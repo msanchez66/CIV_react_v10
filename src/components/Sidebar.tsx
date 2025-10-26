@@ -602,6 +602,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     }
   };
 
+  const [selectionMethod, setSelectionMethod] = useState<'mapa' | 'codigo' | 'nombre'>('mapa');
 
   return (
     <div className="sidebar">
@@ -635,6 +636,13 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div className="window-description">
           <h5>Descripción</h5>
           <p>En esta ventana podrá localizar y descargar información sobre todos los puntos incluidos en un archivo externo.</p>
+        </div>
+      )}
+
+      {activeMenu === 'Manejar segmentos' && (
+        <div className="window-description">
+          <h5>Descripción</h5>
+          <p>En esta ventana podrá visualizar y actualizar la información de los segmentos</p>
         </div>
       )}
 
@@ -976,9 +984,80 @@ const Sidebar: React.FC<SidebarProps> = ({
       )}
 
       {activeMenu === 'Manejar segmentos' && (
+        <div className="selection-method-section">
+          <h4>Seleccionar segmento</h4>
+          <div className="selection-options">
+            <button 
+              className={`selection-option ${selectionMethod === 'mapa' ? 'active' : ''}`}
+              onClick={() => setSelectionMethod('mapa')}
+            >
+              Seleccionar en el mapa
+            </button>
+            <button 
+              className={`selection-option ${selectionMethod === 'codigo' ? 'active' : ''}`}
+              onClick={() => setSelectionMethod('codigo')}
+            >
+              Buscar por código
+            </button>
+            <button 
+              className={`selection-option ${selectionMethod === 'nombre' ? 'active' : ''}`}
+              onClick={() => setSelectionMethod('nombre')}
+            >
+              Buscar por nombre
+            </button>
+          </div>
+          
+          {selectionMethod === 'nombre' && (
+            <div className="map-selection-section">
+              <h5>Búsqueda por nombre de la vía</h5>
+              <input
+                type="text"
+                placeholder="Enter street name (e.g., 'Avenida Independencia')"
+                value={searchQuery}
+                onChange={(e) => onSearch(e.target.value)}
+                className="search-input"
+              />
+            </div>
+          )}
+          
+          {selectionMethod === 'codigo' && (
+            <div className="map-selection-section">
+              <h5>Búsqueda por código de la vía</h5>
+              <div className="code-inputs">
+                <select 
+                  className="municipality-select"
+                  value={municipality}
+                  onChange={(e) => setMunicipality(e.target.value)}
+                >
+                  <option value="DNX">DNX</option>
+                  <option value="SDO">SDO</option>
+                  <option value="SDE">SDE</option>
+                  <option value="SDN">SDN</option>
+                </select>
+                <span>-</span>
+                <input
+                  type="text"
+                  placeholder="000001"
+                  className="code-input"
+                  maxLength={6}
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
+                />
+              </div>
+              <button 
+                className="search-button"
+                onClick={handleSearchByCode}
+              >
+                Búsqueda por código
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {activeMenu === 'Manejar segmentos' && (
         <div className="manage-segments-section">
-          <h4>Manejar Segmentos</h4>
-          <h5 style={{marginTop: '15px', marginBottom: '10px', color: 'white'}}>Acciones</h5>
+          <h4>Acciones</h4>
           <div className="manage-options">
             <button 
               className={`manage-btn ${selectedAction === 'actualizar' ? 'active-action' : ''}`}
