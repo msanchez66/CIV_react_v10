@@ -276,24 +276,43 @@ function App() {
           {activeMenu === 'Manejar segmentos' && selectedAction ? (
             <>
               <div className="left-column-info">
-                <div className="manage-info">
-                  <h4>Información del segmento</h4>
-                  {selectedSegment ? (
-                    <>
+                {selectedSegment ? (
+                  <>
+                    {/* Title and Info in first quadrant */}
+                    <div className="segment-info-quadrant">
+                      <h4 className="segment-info-title">Información del segmento</h4>
+                      
                       {/* Street Name */}
-                      <div className="segment-header">
-                        <label>NOMBRE DE LA VÍA:</label>
-                        <span className="segment-street-name">{selectedSegment.street_name || selectedSegment.name || 'N/A'}</span>
+                      <div className="segment-field">
+                        <span className="field-label">NOMBRE DE LA VÍA:</span>
+                        <span className="field-value">{(() => {
+                          const streetName = selectedSegment.street_name || selectedSegment.name;
+                          if (streetName && streetName !== 'N/A') {
+                            return streetName;
+                          }
+                          // If N/A, use street code format
+                          const streetCode = selectedSegment.street_code || '';
+                          const codeMatch = streetCode.match(/([A-Z]+)-(\d+)/);
+                          if (codeMatch) {
+                            return `${codeMatch[1]}-${codeMatch[2]}`;
+                          }
+                          return streetCode || 'N/A';
+                        })()}</span>
                       </div>
 
                       {/* Segment Code with Dropdown for same street segments */}
                       {(() => {
-                        const sameStreetSegments = segments.filter(s => 
-                          (s.street_name || s.name) === (selectedSegment.street_name || selectedSegment.name)
-                        );
+                        // Filter segments with same street name and DNX code
+                        const currentStreetName = selectedSegment.street_name || selectedSegment.name;
+                        const sameStreetSegments = segments.filter(s => {
+                          const sName = s.street_name || s.name;
+                          const sCode = s.street_code || '';
+                          return sName === currentStreetName && sCode.match(/^DNX-/);
+                        });
+                        
                         return (
-                          <div className="segment-code-section">
-                            <label>CÓDIGO DEL SEGMENTO:</label>
+                          <div className="segment-field">
+                            <span className="field-label">CÓDIGO DEL SEGMENTO:</span>
                             {sameStreetSegments.length > 1 ? (
                               <select 
                                 className="segment-code-dropdown"
@@ -310,34 +329,32 @@ function App() {
                                 ))}
                               </select>
                             ) : (
-                              <span>{selectedSegment.street_code || selectedSegment.id || 'N/A'}</span>
+                              <span className="field-value">{selectedSegment.street_code || selectedSegment.id || 'N/A'}</span>
                             )}
                           </div>
                         );
                       })()}
 
                       {/* Additional Info */}
-                      <div className="segment-details">
-                        <div className="detail-item">
-                          <label>LONGITUD:</label>
-                          <span>{selectedSegment.length ? `${selectedSegment.length.toFixed(2)}m` : 'N/A'}</span>
-                        </div>
-                        <div className="detail-item">
-                          <label>CLASE DE VÍA:</label>
-                          <span>{selectedSegment.fclass || 'N/A'}</span>
-                        </div>
-                        <div className="detail-item">
-                          <label>MUNICIPIO:</label>
-                          <span>{selectedSegment.municipality || 'N/A'}</span>
-                        </div>
+                      <div className="segment-field">
+                        <span className="field-label">LONGITUD:</span>
+                        <span className="field-value">{selectedSegment.length ? `${selectedSegment.length.toFixed(2)}m` : 'N/A'}</span>
                       </div>
-                    </>
-                  ) : (
-                    <div className="manage-info-placeholder">
-                      Seleccione un segmento en el mapa
+                      <div className="segment-field">
+                        <span className="field-label">CLASE DE VÍA:</span>
+                        <span className="field-value">{selectedSegment.fclass || 'N/A'}</span>
+                      </div>
+                      <div className="segment-field">
+                        <span className="field-label">MUNICIPIO:</span>
+                        <span className="field-value">{selectedSegment.municipality || 'N/A'}</span>
+                      </div>
                     </div>
-                  )}
-                </div>
+                  </>
+                ) : (
+                  <div className="manage-info-placeholder">
+                    Seleccione un segmento en el mapa
+                  </div>
+                )}
                 
                 {/* Back button moved to bottom */}
                 <button 
