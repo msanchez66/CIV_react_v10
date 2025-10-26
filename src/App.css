@@ -70,7 +70,7 @@ body {
   font-weight: 500;
   color: #2c3e50;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
   border-right: 1px solid #7f8c8d;
 }
 
@@ -86,7 +86,7 @@ body {
 .menu-strip .menu-item.active {
   background: #27ae60;
   color: white;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Main Layout */
@@ -1388,6 +1388,24 @@ body {
   background: #27ae60 !important;
   border: 2px solid #27ae60 !important;
   color: white !important;
+}
+
+.main-content.split-layout .manage-info h4,
+.main-content.split-layout .map-info-container h4 {
+  border-top: 3px solid #2980b9;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.main-content.split-layout .guide-map {
+  display: none;
+}
+
+.manage-info h4 {
+  color: #ecf0f1;
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 /* Selection Method Section for Manejar segmentos */

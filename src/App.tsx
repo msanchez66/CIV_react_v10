@@ -263,12 +263,94 @@ function App() {
           setSelectedAction={setSelectedAction}
         />
         <div className={`main-content ${activeMenu === 'Manejar segmentos' && selectedAction ? 'split-layout' : ''}`}>
-          <MapComponent
-            segments={segments}
-            onSegmentClick={handleSegmentClick}
-            loading={loading}
-            onLoadSegments={handleLoadSegments}
-          />
+          {activeMenu === 'Manejar segmentos' && selectedAction ? (
+            <>
+              <div className="left-column-info">
+                <div className="manage-info">
+                  <h4>Información del segmento</h4>
+                  {selectedSegment ? (
+                    <div className="info-grid scrollable">
+                      <div className="info-item">
+                        <label>CÓDIGO DE LA VÍA:</label>
+                        <span>{selectedSegment.street_code || 'N/A'}</span>
+                      </div>
+                      <div className="info-item">
+                        <label>ID:</label>
+                        <span>{selectedSegment.id || 'N/A'}</span>
+                      </div>
+                      <div className="info-item">
+                        <label>NOMBRE:</label>
+                        <span>{selectedSegment.street_name || selectedSegment.name || 'N/A'}</span>
+                      </div>
+                      <div className="info-item">
+                        <label>LONGITUD:</label>
+                        <span>{selectedSegment.length ? `${selectedSegment.length.toFixed(2)}m` : 'N/A'}</span>
+                      </div>
+                      <div className="info-item">
+                        <label>COORDENADAS INICIALES:</label>
+                        <span>
+                          {selectedSegment.coords && selectedSegment.coords.length > 0
+                            ? `${selectedSegment.coords[0][1].toFixed(6)}, ${selectedSegment.coords[0][0].toFixed(6)}`
+                            : 'N/A'
+                          }
+                        </span>
+                      </div>
+                      <div className="info-item">
+                        <label>COORDENADAS FINALES:</label>
+                        <span>
+                          {selectedSegment.coords && selectedSegment.coords.length > 0
+                            ? `${selectedSegment.coords[selectedSegment.coords.length - 1][1].toFixed(6)}, ${selectedSegment.coords[selectedSegment.coords.length - 1][0].toFixed(6)}`
+                            : 'N/A'
+                          }
+                        </span>
+                      </div>
+                      <div className="info-item">
+                        <label>CLASE DE VÍA:</label>
+                        <span>{selectedSegment.fclass || 'N/A'}</span>
+                      </div>
+                      <div className="info-item">
+                        <label>MUNICIPIO:</label>
+                        <span>{selectedSegment.municipality || 'N/A'}</span>
+                      </div>
+                      <div className="info-item">
+                        <label>GEOMETRÍA:</label>
+                        <span>{selectedSegment.geometry || 'N/A'}</span>
+                      </div>
+                      <div className="info-item">
+                        <label>PUNTOS:</label>
+                        <span>{selectedSegment.coords ? selectedSegment.coords.length : 0}</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="manage-info-placeholder">
+                      Seleccione un segmento en el mapa
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="map-container">
+                <MapComponent
+                  segments={segments}
+                  onSegmentClick={handleSegmentClick}
+                  loading={loading}
+                  onLoadSegments={handleLoadSegments}
+                />
+              </div>
+              <div className="map-info-container">
+                <h4>Información de la red</h4>
+                <div className="network-info-placeholder">
+                  Basic data of the network
+                </div>
+              </div>
+            </>
+          ) : (
+            <MapComponent
+              segments={segments}
+              onSegmentClick={handleSegmentClick}
+              loading={loading}
+              onLoadSegments={handleLoadSegments}
+            />
+          )}
         </div>
       </div>
     </div>
