@@ -1526,40 +1526,55 @@ body {
 }
 
 /* Segment Info Quadrant Styles for Manejar segmentos */
-.segment-info-quadrant {
-  padding: 20px 30px;
-  margin: 15px;
-  background: rgba(52, 73, 94, 0.6);
-  border-radius: 8px;
-}
 
-.segment-info-title {
+/* Title outside box with blue line above */
+.segment-info-title-outside {
   color: #2c3e50;
   font-size: 18px;
   font-weight: 600;
-  margin: 0 0 20px 0;
+  margin: 20px 15px 15px 15px;
+  padding-top: 15px;
+  border-top: 3px solid #2980b9;
 }
 
-.segment-field {
+/* Street Name Header - Centered and Large */
+.street-name-header {
+  color: #2c3e50;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin: 10px 15px 20px 15px;
+  padding: 10px;
+}
+
+/* Segment Info Quadrant Box - Very Light Grey */
+.segment-info-quadrant {
+  padding: 20px 30px;
+  margin: 0 15px 15px 15px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Code Container */
+.segment-code-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 10px;
   margin-bottom: 15px;
 }
 
-.field-label {
+.code-prefix {
   color: #2c3e50;
   font-size: 13px;
   font-weight: 600;
-  flex: 0 0 40%;
+  white-space: nowrap;
 }
 
-.field-value {
+.code-display {
   color: #2c3e50;
   font-size: 13px;
   font-weight: 400;
-  text-align: right;
-  flex: 1;
 }
 
 .segment-code-dropdown {
@@ -1582,6 +1597,28 @@ body {
   outline: none;
   border-color: #3498db;
   box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.segment-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.field-label {
+  color: #2c3e50;
+  font-size: 13px;
+  font-weight: 600;
+  flex: 0 0 40%;
+}
+
+.field-value {
+  color: #2c3e50;
+  font-size: 13px;
+  font-weight: 400;
+  text-align: right;
+  flex: 1;
 }
 
 /* Left column info layout adjustments */

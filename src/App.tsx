@@ -278,41 +278,43 @@ function App() {
               <div className="left-column-info">
                 {selectedSegment ? (
                   <>
-                    {/* Title and Info in first quadrant */}
-                    <div className="segment-info-quadrant">
-                      <h4 className="segment-info-title">Información del segmento</h4>
-                      
-                      {/* Street Name */}
-                      <div className="segment-field">
-                        <span className="field-label">NOMBRE DE LA VÍA:</span>
-                        <span className="field-value">{(() => {
-                          const streetName = selectedSegment.street_name || selectedSegment.name;
-                          if (streetName && streetName !== 'N/A') {
-                            return streetName;
-                          }
-                          // If N/A, use street code format
-                          const streetCode = selectedSegment.street_code || '';
-                          const codeMatch = streetCode.match(/([A-Z]+)-(\d+)/);
-                          if (codeMatch) {
-                            return `${codeMatch[1]}-${codeMatch[2]}`;
-                          }
-                          return streetCode || 'N/A';
-                        })()}</span>
-                      </div>
+                    {/* Title outside the box with blue line above */}
+                    <h4 className="segment-info-title-outside">Información del segmento</h4>
+                    
+                    {/* Street Name - Centered and Large */}
+                    <div className="street-name-header">
+                      {(() => {
+                        const streetName = selectedSegment.street_name || selectedSegment.name;
+                        const displayName = (streetName && streetName !== 'N/A') 
+                          ? streetName 
+                          : (() => {
+                              // If N/A, use street code format
+                              const streetCode = selectedSegment.street_code || '';
+                              const codeMatch = streetCode.match(/([A-Z]+)-(\d+)/);
+                              return codeMatch ? `${codeMatch[1]}-${codeMatch[2]}` : 'Calle NN-000000';
+                            })();
+                        return displayName;
+                      })()}
+                    </div>
 
+                    {/* Segment Info Box */}
+                    <div className="segment-info-quadrant">
                       {/* Segment Code with Dropdown for same street segments */}
                       {(() => {
-                        // Filter segments with same street name and DNX code
+                        // Get current street name (normalized)
                         const currentStreetName = selectedSegment.street_name || selectedSegment.name;
+                        
+                        // Filter segments with same street name and DNX code
                         const sameStreetSegments = segments.filter(s => {
                           const sName = s.street_name || s.name;
                           const sCode = s.street_code || '';
+                          // Match both same street name AND DNX code
                           return sName === currentStreetName && sCode.match(/^DNX-/);
                         });
                         
                         return (
-                          <div className="segment-field">
-                            <span className="field-label">CÓDIGO DEL SEGMENTO:</span>
+                          <div className="segment-code-container">
+                            <span className="code-prefix">CÓDIGO:</span>
                             {sameStreetSegments.length > 1 ? (
                               <select 
                                 className="segment-code-dropdown"
@@ -329,7 +331,7 @@ function App() {
                                 ))}
                               </select>
                             ) : (
-                              <span className="field-value">{selectedSegment.street_code || selectedSegment.id || 'N/A'}</span>
+                              <span className="code-display">{selectedSegment.street_code || selectedSegment.id || 'N/A'}</span>
                             )}
                           </div>
                         );
@@ -350,11 +352,7 @@ function App() {
                       </div>
                     </div>
                   </>
-                ) : (
-                  <div className="manage-info-placeholder">
-                    Seleccione un segmento en el mapa
-                  </div>
-                )}
+                ) : null}
                 
                 {/* Back button moved to bottom */}
                 <button 
