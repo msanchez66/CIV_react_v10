@@ -356,23 +356,23 @@ function App() {
                         maxX={cumulativeData.max_length}
                       />
                     )}
-                  </div>
-                  <div className="network-stats">
-                    <div className="network-stat-item">
-                      <label>Longitud total de los segmentos:</label>
-                      <span>10,714.2 km</span>
-                    </div>
-                    <div className="network-stat-item">
-                      <label>No. segmentos:</label>
-                      <span>{cumulativeData?.total_segments?.toLocaleString() || '124,476'}</span>
-                    </div>
-                    <div className="network-stat-item">
-                      <label>Max Length:</label>
-                      <span>18990.69m</span>
-                    </div>
-                    <div className="network-stat-item">
-                      <label>Min Length (roads &gt; 10m):</label>
-                      <span>10.00m</span>
+                    <div className="network-stats-overlay">
+                      <div className="network-stat-item">
+                        <label>Longitud total:</label>
+                        <span>10,714.2 km</span>
+                      </div>
+                      <div className="network-stat-item">
+                        <label>No. segmentos:</label>
+                        <span>{cumulativeData?.total_segments?.toLocaleString() || '124,476'}</span>
+                      </div>
+                      <div className="network-stat-item">
+                        <label>Max Length:</label>
+                        <span>18990.69m</span>
+                      </div>
+                      <div className="network-stat-item">
+                        <label>Min Length:</label>
+                        <span>10.00m</span>
+                      </div>
                     </div>
                   </div>
                 </div>
