@@ -278,8 +278,13 @@ function App() {
               <div className="left-column-info">
                 {selectedSegment ? (
                   <>
-                    {/* Title outside the box with blue line above */}
-                    <h4 className="segment-info-title-outside">Información del segmento</h4>
+                    {/* Title in light grey box */}
+                    <div className="segment-info-title-box">
+                      <h4 className="segment-info-title">Información del segmento</h4>
+                    </div>
+                    
+                    {/* Blue line separator */}
+                    <div className="blue-line-separator"></div>
                     
                     {/* Street Name - Centered and Large */}
                     <div className="street-name-header">
