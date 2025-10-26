@@ -1507,6 +1507,24 @@ body {
   color: white;
 }
 
+.back-button {
+  background: #34495e;
+  color: white;
+  border: 1px solid #2c3e50;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 15px;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.back-button:hover {
+  background: #3d566e;
+}
+
 .map-selection-section {
   margin-top: 15px;
   padding-top: 15px;

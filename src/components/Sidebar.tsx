@@ -642,7 +642,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       {activeMenu === 'Manejar segmentos' && (
         <div className="window-description">
           <h5>Descripción</h5>
-          <p>En esta ventana podrá visualizar, y modificar las características de los activos de infraestructura</p>
+          <p>En esta ventana podrá visualizar y actualizar la información de los segmentos</p>
         </div>
       )}
 
@@ -985,7 +985,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       {activeMenu === 'Manejar segmentos' && (
         <div className="selection-method-section">
-          <h4>Seleccionar segmento</h4>
+          <h4>Seleccione el segmento</h4>
           <div className="selection-options">
             <button 
               className={`selection-option ${selectionMethod === 'mapa' ? 'active' : ''}`}
@@ -1063,13 +1063,13 @@ const Sidebar: React.FC<SidebarProps> = ({
               className={`manage-btn ${selectedAction === 'actualizar' ? 'active-action' : ''}`}
               onClick={() => setSelectedAction('actualizar')}
             >
-              Actualizar información
+              Actualizar información básica del activo
             </button>
             <button 
               className={`manage-btn ${selectedAction === 'ver' ? 'active-action' : ''}`}
               onClick={() => setSelectedAction('ver')}
             >
-              Ver actividad
+              Actualizar información complementaria del activo
             </button>
           </div>
         </div>

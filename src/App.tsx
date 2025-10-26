@@ -276,6 +276,12 @@ function App() {
           {activeMenu === 'Manejar segmentos' && selectedAction ? (
             <>
               <div className="left-column-info">
+                <button 
+                  className="back-button"
+                  onClick={() => setSelectedAction('')}
+                >
+                  ← Volver
+                </button>
                 <div className="manage-info">
                   <h4>Información del segmento</h4>
                   {selectedSegment ? (
