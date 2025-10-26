@@ -642,7 +642,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       {activeMenu === 'Manejar segmentos' && (
         <div className="window-description">
           <h5>Descripción</h5>
-          <p>En esta ventana podrá visualizar y actualizar la información de los segmentos</p>
+          <p>En esta ventana podrá visualizar, y modificar las características de los activos de infraestructura</p>
         </div>
       )}
 

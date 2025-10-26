@@ -135,6 +135,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ segments, onSegmentClick, l
     };
 
     initializeMap();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Initialize guide map

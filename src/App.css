@@ -1502,8 +1502,8 @@ body {
 }
 
 .selection-option.active {
-  background: #27ae60;
-  border-color: #27ae60;
+  background: #34495e;
+  border-color: #5a7a9f;
   color: white;
 }
 
