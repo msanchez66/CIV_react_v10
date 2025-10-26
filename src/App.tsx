@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import './App.css';
 import MapComponent from './components/MapComponent';
 import Sidebar from './components/Sidebar';
+import CumulativeChart from './components/CumulativeChart';
 import { useSegments } from './hooks/useSegments';
 import { searchSegments, calculateStatistics } from './utils/segmentUtils';
 import { Segment } from './types/Segment';
@@ -16,9 +17,18 @@ function App() {
   const [groupPoints, setGroupPoints] = useState<Array<{id: number, name: string, lat: number, lng: number, sequence: number, referencia?: string}>>([]);
   const [paginationStart, setPaginationStart] = useState<number>(0);
   const [selectedAction, setSelectedAction] = useState<string>('');
+  const [cumulativeData, setCumulativeData] = useState<any>(null);
 
   // Calculate statistics
   const statistics = useMemo(() => calculateStatistics(segments), [segments]);
+
+  // Fetch cumulative distribution data
+  useEffect(() => {
+    fetch('/cumulative_distribution.json')
+      .then(res => res.json())
+      .then(data => setCumulativeData(data))
+      .catch(err => console.error('Error loading cumulative data:', err));
+  }, []);
 
   // Handle segment click
   const handleSegmentClick = useCallback((segment: Segment) => {
@@ -338,8 +348,25 @@ function App() {
               </div>
               <div className="map-info-container">
                 <h4>Información de la red</h4>
-                <div className="network-info-placeholder">
-                  Basic data of the network
+                <div className="network-info-content">
+                  <div className="chart-container">
+                    {cumulativeData && (
+                      <CumulativeChart 
+                        data={cumulativeData.cumulative_data} 
+                        maxX={cumulativeData.max_length}
+                      />
+                    )}
+                  </div>
+                  <div className="network-stats">
+                    <div className="network-stat-item">
+                      <label>Longitud total de los segmentos:</label>
+                      <span>10,714.2 km</span>
+                    </div>
+                    <div className="network-stat-item">
+                      <label>No. segmentos:</label>
+                      <span>{cumulativeData?.total_segments?.toLocaleString() || '124,476'}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </>
