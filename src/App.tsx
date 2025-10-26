@@ -276,73 +276,76 @@ function App() {
           {activeMenu === 'Manejar segmentos' && selectedAction ? (
             <>
               <div className="left-column-info">
-                <button 
-                  className="back-button"
-                  onClick={() => setSelectedAction('')}
-                >
-                  ← Volver
-                </button>
                 <div className="manage-info">
                   <h4>Información del segmento</h4>
                   {selectedSegment ? (
-                    <div className="info-grid scrollable">
-                      <div className="info-item">
-                        <label>CÓDIGO DE LA VÍA:</label>
-                        <span>{selectedSegment.street_code || 'N/A'}</span>
+                    <>
+                      {/* Street Name */}
+                      <div className="segment-header">
+                        <label>NOMBRE DE LA VÍA:</label>
+                        <span className="segment-street-name">{selectedSegment.street_name || selectedSegment.name || 'N/A'}</span>
                       </div>
-                      <div className="info-item">
-                        <label>ID:</label>
-                        <span>{selectedSegment.id || 'N/A'}</span>
+
+                      {/* Segment Code with Dropdown for same street segments */}
+                      {(() => {
+                        const sameStreetSegments = segments.filter(s => 
+                          (s.street_name || s.name) === (selectedSegment.street_name || selectedSegment.name)
+                        );
+                        return (
+                          <div className="segment-code-section">
+                            <label>CÓDIGO DEL SEGMENTO:</label>
+                            {sameStreetSegments.length > 1 ? (
+                              <select 
+                                className="segment-code-dropdown"
+                                value={selectedSegment.id}
+                                onChange={(e) => {
+                                  const selected = segments.find(s => s.id === e.target.value);
+                                  if (selected) setSelectedSegment(selected);
+                                }}
+                              >
+                                {sameStreetSegments.map(seg => (
+                                  <option key={seg.id} value={seg.id}>
+                                    {seg.street_code || seg.id}
+                                  </option>
+                                ))}
+                              </select>
+                            ) : (
+                              <span>{selectedSegment.street_code || selectedSegment.id || 'N/A'}</span>
+                            )}
+                          </div>
+                        );
+                      })()}
+
+                      {/* Additional Info */}
+                      <div className="segment-details">
+                        <div className="detail-item">
+                          <label>LONGITUD:</label>
+                          <span>{selectedSegment.length ? `${selectedSegment.length.toFixed(2)}m` : 'N/A'}</span>
+                        </div>
+                        <div className="detail-item">
+                          <label>CLASE DE VÍA:</label>
+                          <span>{selectedSegment.fclass || 'N/A'}</span>
+                        </div>
+                        <div className="detail-item">
+                          <label>MUNICIPIO:</label>
+                          <span>{selectedSegment.municipality || 'N/A'}</span>
+                        </div>
                       </div>
-                      <div className="info-item">
-                        <label>NOMBRE:</label>
-                        <span>{selectedSegment.street_name || selectedSegment.name || 'N/A'}</span>
-                      </div>
-                      <div className="info-item">
-                        <label>LONGITUD:</label>
-                        <span>{selectedSegment.length ? `${selectedSegment.length.toFixed(2)}m` : 'N/A'}</span>
-                      </div>
-                      <div className="info-item">
-                        <label>COORDENADAS INICIALES:</label>
-                        <span>
-                          {selectedSegment.coords && selectedSegment.coords.length > 0
-                            ? `${selectedSegment.coords[0][1].toFixed(6)}, ${selectedSegment.coords[0][0].toFixed(6)}`
-                            : 'N/A'
-                          }
-                        </span>
-                      </div>
-                      <div className="info-item">
-                        <label>COORDENADAS FINALES:</label>
-                        <span>
-                          {selectedSegment.coords && selectedSegment.coords.length > 0
-                            ? `${selectedSegment.coords[selectedSegment.coords.length - 1][1].toFixed(6)}, ${selectedSegment.coords[selectedSegment.coords.length - 1][0].toFixed(6)}`
-                            : 'N/A'
-                          }
-                        </span>
-                      </div>
-                      <div className="info-item">
-                        <label>CLASE DE VÍA:</label>
-                        <span>{selectedSegment.fclass || 'N/A'}</span>
-                      </div>
-                      <div className="info-item">
-                        <label>MUNICIPIO:</label>
-                        <span>{selectedSegment.municipality || 'N/A'}</span>
-                      </div>
-                      <div className="info-item">
-                        <label>GEOMETRÍA:</label>
-                        <span>{selectedSegment.geometry || 'N/A'}</span>
-                      </div>
-                      <div className="info-item">
-                        <label>PUNTOS:</label>
-                        <span>{selectedSegment.coords ? selectedSegment.coords.length : 0}</span>
-                      </div>
-                    </div>
+                    </>
                   ) : (
                     <div className="manage-info-placeholder">
                       Seleccione un segmento en el mapa
                     </div>
                   )}
                 </div>
+                
+                {/* Back button moved to bottom */}
+                <button 
+                  className="back-button"
+                  onClick={() => setSelectedAction('')}
+                >
+                  ← Volver
+                </button>
               </div>
               <div className="map-container">
                 <MapComponent
