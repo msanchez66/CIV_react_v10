@@ -1383,6 +1383,16 @@ body {
   grid-row: 1;
 }
 
+.main-content.split-layout .map-info-container {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.main-content.split-layout .left-column-info {
+  grid-column: 1;
+  grid-row: 1 / -1;
+}
+
 /* Active Action Button */
 .manage-btn.active-action {
   background: #27ae60 !important;
