@@ -1435,9 +1435,9 @@ body {
 }
 
 .network-stat-item span {
-  color: #3498db;
+  color: white;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .main-content.split-layout .guide-map {
