@@ -655,7 +655,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </button>
       </div>
 
-      {activeMenu !== 'Search' && activeMenu !== 'Localización puntos' && activeMenu !== 'Localización grupal' && (
+      {activeMenu !== 'Search' && activeMenu !== 'Localización puntos' && activeMenu !== 'Localización grupal' && activeMenu !== 'Manejar segmentos' && (
         <div className="statistics">
           <h4>Estadísticas de la red</h4>
           <div className="stats-grid">
