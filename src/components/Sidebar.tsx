@@ -1075,7 +1075,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
       )}
 
-      {selectedSegment && activeMenu !== 'Localización puntos' && activeMenu !== 'Localización grupal' && (
+      {selectedSegment && activeMenu !== 'Localización puntos' && activeMenu !== 'Localización grupal' && activeMenu !== 'Manejar segmentos' && (
         <div className="segment-info">
           <h4>Información del segmento</h4>
           <div className="info-grid scrollable">
@@ -1134,7 +1134,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       )}
 
       {/* Clear search button outside segment info box */}
-      {selectedSegment && activeMenu !== 'Localización puntos' && activeMenu !== 'Localización grupal' && (
+      {selectedSegment && activeMenu !== 'Localización puntos' && activeMenu !== 'Localización grupal' && activeMenu !== 'Manejar segmentos' && (
         <div className="clear-search-section">
           <button 
             className="clear-search-btn"
