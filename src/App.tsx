@@ -58,10 +58,17 @@ function App() {
       
       // Highlight segment and recenter map at zoom 18
       if ((window as any).highlightSegment) {
+        console.log('Calling highlightSegment...');
         (window as any).highlightSegment(selected);
+      } else {
+        console.error('highlightSegment function not available');
       }
+      
       if ((window as any).recenterMapToSegment) {
+        console.log('Calling recenterMapToSegment...');
         (window as any).recenterMapToSegment(selected, 18);
+      } else {
+        console.error('recenterMapToSegment function not available');
       }
     } else {
       console.error('Segment not found with id:', segmentId);
@@ -79,10 +86,10 @@ function App() {
     const norm1 = normalizeStreetName(name1);
     const norm2 = normalizeStreetName(name2);
     
-    // Both empty/null/N/A
-    if (!norm1 && !norm2) return true;
+    // Both empty/null/N/A - they don't match (each unnamed segment is unique)
+    if (!norm1 && !norm2) return false;
     
-    // One empty, one not
+    // One empty, one not - they don't match
     if (!norm1 || !norm2) return false;
     
     // Both have names - exact match
@@ -361,10 +368,17 @@ function App() {
                         const sameStreetSegments = segments.filter(s => {
                           const currentName = selectedSegment.street_name || selectedSegment.name;
                           const segmentName = s.street_name || s.name;
-                          return streetNamesMatch(currentName, segmentName);
+                          const matches = streetNamesMatch(currentName, segmentName);
+                          console.log(`Comparing "${currentName}" with "${segmentName}": ${matches}`);
+                          return matches;
                         });
                         
                         console.log(`Found ${sameStreetSegments.length} segments with street name "${streetName}"`);
+                        console.log('Same street segments:', sameStreetSegments.map(s => ({ 
+                          id: s.id, 
+                          code: s.street_code, 
+                          name: s.street_name || s.name 
+                        })));
                         
                         return (
                           <div className="street-code-dropdown-container">
