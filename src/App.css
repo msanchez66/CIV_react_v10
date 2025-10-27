@@ -1393,128 +1393,347 @@ body {
   grid-row: 1 / -1;
 }
 
-/* Clear Selection Button */
-.clear-selection-btn {
-  width: calc(100% - 30px);
-  margin: 15px;
-  padding: 12px 20px;
-  background: #e74c3c;
-  color: white;
-  border: 2px solid #c0392b;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* Active Action Button */
+.manage-btn.active-action {
+  background: #27ae60 !important;
+  border: 2px solid #27ae60 !important;
+  color: white !important;
 }
 
-.clear-selection-btn:hover {
-  background: #c0392b;
-  border-color: #a93226;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.clear-selection-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Segment Quadrant Title */
-.segment-quadrant-title {
-  color: #2c3e50;
-  font-size: 18px;
-  font-weight: 600;
-  margin: 20px 15px 10px 15px;
-  padding-bottom: 10px;
-  border-bottom: 3px solid #2980b9;
-}
-
-/* Street Info Box */
-.street-info-box {
-  background: #f5f5f5;
-  border: 2px solid #bbb;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 15px;
-  text-align: center;
-}
-
-.street-name-large {
-  font-size: 24px;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.street-code-dropdown-container {
+.main-content.split-layout .manage-info h4,
+.main-content.split-layout .map-info-container h4 {
+  border-top: 3px solid #2980b9;
+  padding-top: 10px;
   margin-top: 10px;
 }
 
-.street-code-dropdown {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  color: #2c3e50;
+.network-info-content {
+  display: flex;
+  gap: 20px;
+  height: calc(100% - 50px);
+  padding: 15px;
+}
+
+.chart-container {
+  flex: 1;
+  min-height: 300px;
   background: white;
-  border: 1px solid #bbb;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
+  border-radius: 8px;
+  padding: 15px;
 }
 
-.street-code-dropdown:hover {
-  border-color: #2980b9;
+.network-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 300px;
 }
 
-.street-code-dropdown:focus {
-  outline: none;
-  border-color: #2980b9;
-  box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.1);
+.network-stat-item {
+  background: rgba(52, 73, 94, 0.8);
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.street-code-display {
+.network-stat-item label {
+  color: #ecf0f1;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.network-stat-item span {
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.main-content.split-layout .guide-map {
+  display: none;
+}
+
+.manage-info h4 {
+  color: #ecf0f1;
+  margin: 0 0 15px 0;
   font-size: 16px;
-  font-weight: 500;
-  color: #2c3e50;
-  padding: 10px;
-  background: #e8e8e8;
+  font-weight: 600;
+}
+
+/* Selection Method Section for Manejar segmentos */
+.selection-method-section {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(52, 73, 94, 0.8);
+  border-radius: 8px;
+  border: 1px solid #34495e;
+}
+
+.selection-method-section h4 {
+  color: #ecf0f1;
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.selection-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.selection-option {
+  background: #34495e;
+  color: #ecf0f1;
+  border: 1px solid #2c3e50;
+  padding: 10px 15px;
   border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.selection-option:hover {
+  background: #3d566e;
+}
+
+.selection-option.active {
+  background: #34495e;
+  border-color: #5a7a9f;
+  color: white;
+}
+
+.back-button {
+  background: #e67e22;
+  color: white;
+  border: 1px solid #d35400;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: auto;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.back-button:hover {
+  background: #d35400;
+}
+
+/* Segment Info Quadrant Styles for Manejar segmentos */
+
+/* Title in light grey box */
+.segment-info-title-box {
+  margin: 15px;
+  padding: 15px 20px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.segment-info-title {
+  color: #2c3e50;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
   text-align: center;
 }
 
-/* Segment Details Box */
-.segment-details-box {
-  background: #f5f5f5;
-  border: 2px solid #bbb;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 15px;
+/* Blue line separator */
+.blue-line-separator {
+  height: 3px;
+  background: #2980b9;
+  margin: 10px 15px 20px 15px;
+  border-radius: 2px;
 }
 
-.detail-item {
+/* Street Name Header - Centered and Large */
+.street-name-header {
+  color: #2c3e50;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin: 10px 15px 20px 15px;
+  padding: 10px;
+}
+
+/* Segment Info Quadrant Box - Very Light Grey */
+.segment-info-quadrant {
+  padding: 20px 25px;
+  margin: 0 30px 15px 30px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Code Container */
+.segment-code-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.code-prefix {
+  color: #2c3e50;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.code-display {
+  color: #2c3e50;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.segment-code-dropdown {
+  flex: 1;
+  padding: 8px 12px;
+  background: white;
+  color: #2c3e50;
+  border: 1px solid #2c3e50;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.segment-code-dropdown:hover {
+  border-color: #3498db;
+}
+
+.segment-code-dropdown:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.segment-field {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
+  margin-bottom: 15px;
 }
 
-.detail-item:last-child {
-  border-bottom: none;
-}
-
-.detail-label {
-  font-weight: 600;
+.field-label {
   color: #2c3e50;
+  font-size: 15px;
+  font-weight: 600;
+  flex: 0 0 40%;
+}
+
+.field-value {
+  color: #2c3e50;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: right;
+  flex: 1;
+}
+
+/* Left column info layout adjustments */
+.left-column-info {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.map-selection-section {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #34495e;
+}
+
+.map-selection-section h5 {
+  color: #ecf0f1;
+  font-size: 13px;
+  margin: 0 0 10px 0;
+  font-weight: 500;
+}
+
+.mark-point-btn {
+  width: 100%;
+  padding: 10px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
   font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+}
+
+.mark-point-btn:hover {
+  background: #229954;
 }
 
 .detail-value {
   color: #2c3e50;
   font-size: 14px;
   font-weight: 400;
+}
+
+/* No Segment Selected Placeholder */
+.no-segment-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: #7f8c8d;
+  height: 100%;
+}
+
+.placeholder-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.no-segment-placeholder h3 {
+  color: #2c3e50;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.no-segment-placeholder p {
+  color: #5a6c7d;
+  font-size: 15px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.selection-instructions {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  max-width: 400px;
+}
+
+.selection-instructions li {
+  color: #5a6c7d;
+  font-size: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ecf0f1;
+  line-height: 1.5;
+}
+
+.selection-instructions li:last-child {
+  border-bottom: none;
+}
+
+.selection-instructions li strong {
+  color: #2980b9;
+  font-weight: 600;
 }
 
 /* Active Action Button */

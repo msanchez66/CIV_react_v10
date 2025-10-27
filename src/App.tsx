@@ -374,8 +374,15 @@ function App() {
                     </div>
                   </>
                 ) : (
-                  <div className="manage-info-placeholder">
-                    Seleccione un segmento en el mapa
+                  <div className="no-segment-placeholder">
+                    <div className="placeholder-icon">📍</div>
+                    <h3>No hay segmento seleccionado</h3>
+                    <p>Por favor seleccione un segmento usando una de las siguientes opciones:</p>
+                    <ul className="selection-instructions">
+                      <li>🔍 <strong>Buscar por nombre</strong> en la barra lateral</li>
+                      <li>🔢 <strong>Buscar por código</strong> (DNX-XXXXXX)</li>
+                      <li>🗺️ <strong>Hacer clic en el mapa</strong> para seleccionar directamente</li>
+                    </ul>
                   </div>
                 )}
               </div>
