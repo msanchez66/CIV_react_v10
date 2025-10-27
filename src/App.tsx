@@ -287,16 +287,39 @@ function App() {
                     
                     {/* Street name and code in light grey box */}
                     <div className="street-info-box">
+                      {/* Display street name or "Calle NN-YYYYYY" if no name */}
                       <div className="street-name-large">
-                        {selectedSegment.street_name || selectedSegment.name || 'N/A'}
+                        {(() => {
+                          const streetName = selectedSegment.street_name || selectedSegment.name;
+                          if (streetName && streetName !== 'N/A' && streetName.trim() !== '') {
+                            return streetName;
+                          } else {
+                            // Display "Calle NN-YYYYYY" where YYYYYY is the street code
+                            const streetCode = selectedSegment.street_code || '';
+                            const codeMatch = streetCode.match(/([A-Z]+)-(\d+)/);
+                            if (codeMatch) {
+                              return `Calle ${codeMatch[1]}-${codeMatch[2]}`;
+                            }
+                            return 'Calle NN-000000';
+                          }
+                        })()}
                       </div>
                       
                       {/* Street code dropdown */}
                       {(() => {
-                        const currentStreetName = selectedSegment.street_name || selectedSegment.name;
+                        const streetName = selectedSegment.street_name || selectedSegment.name;
+                        
+                        // Filter segments with the same street name (or no name if this one has no name)
                         const sameStreetSegments = segments.filter(s => {
                           const sName = s.street_name || s.name;
-                          return sName === currentStreetName;
+                          // Match exactly, including empty/undefined cases
+                          if (!streetName || streetName === 'N/A' || streetName.trim() === '') {
+                            // If current segment has no name, only match segments with no name
+                            return (!sName || sName === 'N/A' || sName.trim() === '');
+                          } else {
+                            // If current segment has a name, match segments with the same name
+                            return sName === streetName;
+                          }
                         });
                         
                         return (
