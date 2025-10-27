@@ -30,7 +30,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ segments, onSegmentClick, l
   const [highlightedSegment, setHighlightedSegment] = useState<Segment | null>(null);
   const highlightedLayerRef = useRef<L.Polyline | null>(null);
   const markersLayerRef = useRef<L.LayerGroup | null>(null);
-  const [coordinateCaptureMode, setCoordinateCaptureMode] = useState<boolean>(false);
+  const [_coordinateCaptureMode, setCoordinateCaptureMode] = useState<boolean>(false);
   const markersMapRef = useRef<Map<number, { marker: L.Marker; label?: L.Marker }>>(new Map());
   const currentPopupRef = useRef<L.Popup | null>(null);
 
@@ -456,7 +456,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ segments, onSegmentClick, l
       let closestSeg = null;
       
       // Haversine distance function
-      const haversineDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+      const _haversineDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
         const R = 6371000; // Earth's radius in meters
         const dLat = (lat2 - lat1) * Math.PI / 180;
         const dLon = (lon2 - lon1) * Math.PI / 180;
@@ -578,7 +578,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ segments, onSegmentClick, l
     };
 
     // Simple Haversine distance calculation
-    const haversineDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+    const _haversineDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
       const R = 6371000; // Earth's radius in meters
       const dLat = (lat2 - lat1) * Math.PI / 180;
       const dLon = (lon2 - lon1) * Math.PI / 180;
@@ -590,7 +590,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ segments, onSegmentClick, l
     };
 
     // Helper function to calculate distance from point to line segment using Haversine formula
-    const pointToLineDistance = (px: number, py: number, x1: number, y1: number, x2: number, y2: number) => {
+    const _pointToLineDistance = (px: number, py: number, x1: number, y1: number, x2: number, y2: number) => {
       // Haversine distance between two points in meters
       const haversineDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
         const R = 6371000; // Earth's radius in meters

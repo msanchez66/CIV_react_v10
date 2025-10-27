@@ -33,14 +33,14 @@ const Sidebar: React.FC<SidebarProps> = ({
   setSearchQuery,
   onClearSelection,
   onLoadSegments,
-  statistics,
+  statistics: _statistics,
   activeMenu,
   onSearchByCode,
   onAddPoint,
   onUploadPoints,
   pointsList,
   onDeletePoint,
-  onFillCoordinates,
+  onFillCoordinates: _onFillCoordinates,
   groupPoints,
   setGroupPoints,
   paginationStart,
@@ -235,7 +235,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         let minDistance = Infinity;
         
         // Haversine distance function
-        const haversineDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+        const _haversineDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
           const R = 6371000; // Earth's radius in meters
           const dLat = (lat2 - lat1) * Math.PI / 180;
           const dLon = (lon2 - lon1) * Math.PI / 180;
@@ -365,7 +365,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     alert('Reporte creado exitosamente');
   };
 
-  const handleFileUpload = (file: File) => {
+  const _handleFileUpload = (file: File) => {
     const reader = new FileReader();
     reader.onload = (e) => {
       const content = e.target?.result as string;
@@ -376,7 +376,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
 
   // Download points to CSV/XLSX
-  const downloadPointsToFile = async (filename: string) => {
+  const _downloadPointsToFile = async (_filename: string) => {
     if (pointsList.length === 0) {
       alert('No hay puntos para descargar');
       return;

@@ -1364,6 +1364,7 @@ body {
   background: #ddd;
   outline: none;
   -webkit-appearance: none;
+  appearance: none;
 }
 
 .pagination-slider-input::-webkit-slider-thumb {
