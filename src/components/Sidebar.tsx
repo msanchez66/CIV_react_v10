@@ -1061,19 +1061,19 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       {activeMenu === 'Manejar segmentos' && (
         <div className="manage-segments-section">
-          <h4>Acciones</h4>
+          <h4>Información y actualización de activos</h4>
           <div className="manage-options">
             <button 
               className={`manage-btn ${selectedAction === 'actualizar' ? 'active-action' : ''}`}
               onClick={() => setSelectedAction('actualizar')}
             >
-              Actualizar información básica del activo
+              Información básica
             </button>
             <button 
               className={`manage-btn ${selectedAction === 'ver' ? 'active-action' : ''}`}
               onClick={() => setSelectedAction('ver')}
             >
-              Actualizar información complementaria del activo
+              Información complementaria (pk)
             </button>
           </div>
           
