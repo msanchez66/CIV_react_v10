@@ -447,7 +447,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     const csvBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const csvLink = document.createElement('a');
     csvLink.href = URL.createObjectURL(csvBlob);
-    csvLink.download = `${filename}.csv`;
+    csvLink.download = `${_filename}.csv`;
     csvLink.click();
 
     alert('Archivo descargado exitosamente');
