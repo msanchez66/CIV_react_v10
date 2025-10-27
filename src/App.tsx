@@ -17,6 +17,7 @@ function App() {
   const [groupPoints, setGroupPoints] = useState<Array<{id: number, name: string, lat: number, lng: number, sequence: number, referencia?: string}>>([]);
   const [paginationStart, setPaginationStart] = useState<number>(0);
   const [selectedAction, setSelectedAction] = useState<string>('');
+  const [dropdownUpdateTrigger, setDropdownUpdateTrigger] = useState<number>(0);
   const [cumulativeData, setCumulativeData] = useState<any>(null);
 
   // Calculate statistics
@@ -50,7 +51,7 @@ function App() {
     }
   }, []);
 
-  // Handle dropdown selection
+  // Handle dropdown selection - treat as new search
   const handleDropdownSelection = useCallback((segmentId: string) => {
     console.log('Dropdown selection triggered with segmentId:', segmentId);
     console.log('Available segments:', segments.length);
@@ -59,12 +60,24 @@ function App() {
     console.log('Found selected segment:', selected);
     
     if (selected) {
+      // Clear any previous highlights first
+      if ((window as any).unhighlightSegment) {
+        (window as any).unhighlightSegment();
+      }
+      
+      // Update the selected segment
       setSelectedSegment(selected);
       console.log('Segment selected from dropdown:', selected);
       
-      // Use setTimeout to ensure state update completes before calling map functions
+      // Force a re-render by updating the trigger
+      setDropdownUpdateTrigger(prev => prev + 1);
+      
+      // Force a re-render by updating the component state
+      // Use a longer timeout to ensure all state updates complete
       setTimeout(() => {
-        // Highlight segment and recenter map at zoom 18
+        console.log('Executing map operations for dropdown selection...');
+        
+        // Highlight the new segment
         if ((window as any).highlightSegment) {
           console.log('Calling highlightSegment...');
           (window as any).highlightSegment(selected);
@@ -72,13 +85,14 @@ function App() {
           console.error('highlightSegment function not available');
         }
         
+        // Recenter map to the new segment
         if ((window as any).recenterMapToSegment) {
           console.log('Calling recenterMapToSegment...');
           (window as any).recenterMapToSegment(selected, 18);
         } else {
           console.error('recenterMapToSegment function not available');
         }
-      }, 200); // Increased delay to ensure state update
+      }, 300); // Longer delay to ensure state update
     } else {
       console.error('Segment not found with id:', segmentId);
     }
@@ -394,11 +408,12 @@ function App() {
                             <div className="civ-label">CIV:</div>
                             {sameStreetSegments.length > 1 ? (
                               <select 
-                                key={`dropdown-${selectedSegment.id}`}
+                                key={`dropdown-${selectedSegment.id}-${dropdownUpdateTrigger}`}
                                 className="street-code-dropdown"
                                 value={selectedSegment.id}
                                 onChange={(e) => {
                                   console.log('Dropdown onChange triggered with value:', e.target.value);
+                                  console.log('Current selectedSegment.id before change:', selectedSegment.id);
                                   handleDropdownSelection(e.target.value);
                                 }}
                               >
