@@ -44,6 +44,44 @@ function App() {
     }
   }, []);
 
+  // Handle dropdown selection
+  const handleDropdownSelection = useCallback((segmentId: string) => {
+    const selected = segments.find(s => s.id === segmentId);
+    if (selected) {
+      setSelectedSegment(selected);
+      console.log('Segment selected from dropdown:', selected);
+      
+      // Highlight segment and recenter map at zoom 18
+      if ((window as any).highlightSegment) {
+        (window as any).highlightSegment(selected);
+      }
+      if ((window as any).recenterMapToSegment) {
+        (window as any).recenterMapToSegment(selected, 18);
+      }
+    }
+  }, [segments]);
+
+  // Helper function to normalize street names for comparison
+  const normalizeStreetName = useCallback((name: string | undefined): string => {
+    if (!name || name === 'N/A') return '';
+    return name.trim().toLowerCase();
+  }, []);
+
+  // Helper function to check if two street names match
+  const streetNamesMatch = useCallback((name1: string | undefined, name2: string | undefined): boolean => {
+    const norm1 = normalizeStreetName(name1);
+    const norm2 = normalizeStreetName(name2);
+    
+    // Both empty/null/N/A
+    if (!norm1 && !norm2) return true;
+    
+    // One empty, one not
+    if (!norm1 || !norm2) return false;
+    
+    // Both have names - exact match
+    return norm1 === norm2;
+  }, [normalizeStreetName]);
+
   // Handle adding a single point
   const handleAddPoint = useCallback((lat: number, lng: number, name?: string) => {
     const newPoint = {
@@ -310,19 +348,16 @@ function App() {
                       {/* Street code dropdown */}
                       {(() => {
                         const streetName = selectedSegment.street_name || selectedSegment.name;
+                        console.log('Current segment street name:', streetName);
                         
                         // Filter segments with the same street name (or no name if this one has no name)
                         const sameStreetSegments = segments.filter(s => {
-                          const sName = s.street_name || s.name;
-                          // Match exactly, including empty/undefined cases
-                          if (!streetName || streetName === 'N/A' || streetName.trim() === '') {
-                            // If current segment has no name, only match segments with no name
-                            return (!sName || sName === 'N/A' || sName.trim() === '');
-                          } else {
-                            // If current segment has a name, match segments with the same name
-                            return sName === streetName;
-                          }
+                          const currentName = selectedSegment.street_name || selectedSegment.name;
+                          const segmentName = s.street_name || s.name;
+                          return streetNamesMatch(currentName, segmentName);
                         });
+                        
+                        console.log(`Found ${sameStreetSegments.length} segments with street name "${streetName}"`);
                         
                         return (
                           <div className="street-code-dropdown-container">
@@ -330,10 +365,7 @@ function App() {
                               <select 
                                 className="street-code-dropdown"
                                 value={selectedSegment.id}
-                                onChange={(e) => {
-                                  const selected = segments.find(s => s.id === e.target.value);
-                                  if (selected) setSelectedSegment(selected);
-                                }}
+                                onChange={(e) => handleDropdownSelection(e.target.value)}
                               >
                                 {sameStreetSegments.map(seg => (
                                   <option key={seg.id} value={seg.id}>
