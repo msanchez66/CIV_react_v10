@@ -60,61 +60,34 @@ function App() {
     }
   }, []);
 
-  // Handle dropdown selection - treat exactly like segment click
+  // Handle dropdown selection - treat it as a NEW SEARCH, just like searching for a street code
   const handleDropdownSelection = useCallback((segmentId: string) => {
-    console.log('=== HANDLE DROPDOWN SELECTION START ===');
-    console.log('Dropdown selection triggered with segmentId:', segmentId);
-    console.log('Type of segmentId:', typeof segmentId);
-    console.log('Available segments:', segments.length);
-    console.log('Looking for segment with id:', segmentId);
+    console.log('=== DROPDOWN SELECTION: Treating as NEW SEARCH ===');
+    console.log('Selected segment ID from dropdown:', segmentId);
     
-    // Log first few segments to see their IDs
-    console.log('First 5 segments:', segments.slice(0, 5).map(s => ({ 
-      id: s.id, 
-      street_code: s.street_code 
-    })));
-    
+    // Find the segment in our segments array
     const selected = segments.find(s => s.id === segmentId);
-    console.log('Found selected segment:', selected);
+    console.log('Found segment:', selected);
     
-    if (selected) {
-      console.log('Setting selectedSegment to:', selected);
-      console.log('Selected segment details:', {
-        id: selected.id,
-        street_code: selected.street_code,
-        street_name: selected.street_name || selected.name
-      });
-      
-      // Use the exact same logic as handleSegmentClick
-      setSelectedSegment(selected);
-      console.log('Segment selected from dropdown:', selected);
-      
-      // Highlight segment and recenter map at zoom 18 - same as segment click
-      if ((window as any).highlightSegment) {
-        console.log('Calling highlightSegment from dropdown...');
-        (window as any).highlightSegment(selected);
-      } else {
-        console.error('highlightSegment function not available');
-      }
-      if ((window as any).recenterMapToSegment) {
-        console.log('Calling recenterMapToSegment from dropdown...');
-        (window as any).recenterMapToSegment(selected, 18);
-      } else {
-        console.error('recenterMapToSegment function not available');
-      }
-      
-      // Force a re-render by updating the trigger
-      setDropdownUpdateTrigger(prev => {
-        console.log('Updating dropdown trigger from', prev, 'to', prev + 1);
-        return prev + 1;
-      });
-      console.log('=== HANDLE DROPDOWN SELECTION END ===');
-    } else {
+    if (!selected) {
       console.error('Segment not found with id:', segmentId);
-      console.log('Available segment IDs (first 10):', segments.slice(0, 10).map(s => s.id));
-      console.log('Does segmentId match any segment?', segments.some(s => s.id === segmentId));
+      return;
     }
-  }, [segments]);
+    
+    console.log('Treating dropdown selection as new search for segment:', selected.street_code);
+    
+    // Call handleSegmentClick directly - this will:
+    // 1. Set the selected segment
+    // 2. Highlight it on the map
+    // 3. Recenter the map to that segment
+    // 4. Update all the information display
+    handleSegmentClick(selected);
+    
+    // Force dropdown to update by triggering re-render
+    setDropdownUpdateTrigger(prev => prev + 1);
+    
+    console.log('Dropdown selection complete - segment should now be visible on map');
+  }, [segments, handleSegmentClick]);
 
   // Helper function to normalize street names for comparison
   const normalizeStreetName = useCallback((name: string | undefined): string => {
