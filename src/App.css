@@ -401,8 +401,21 @@ body {
 
 .localization-section h4 {
   color: #ecf0f1;
-  margin-bottom: 20px;
+  margin: 20px 0 20px 0;
   font-size: 16px;
+  position: relative;
+  padding-top: 15px;
+}
+
+.localization-section h4::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #2980b9;
+  border-radius: 2px;
 }
 
 .localization-section h5 {
@@ -896,8 +909,21 @@ body {
 
 .statistics h4 {
   font-size: 16px;
-  margin-bottom: 15px;
+  margin: 20px 0 15px 0;
   color: #fff;
+  position: relative;
+  padding-top: 15px;
+}
+
+.statistics h4::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #2980b9;
+  border-radius: 2px;
 }
 
 .stats-grid {
@@ -1087,8 +1113,21 @@ body {
 /* Search Section Styles */
 .search-section h4 {
   font-size: 16px;
-  margin-bottom: 15px;
+  margin: 20px 0 15px 0;
   color: #fff;
+  position: relative;
+  padding-top: 15px;
+}
+
+.search-section h4::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #2980b9;
+  border-radius: 2px;
 }
 
 .search-by-name, .search-by-code {
@@ -1401,9 +1440,22 @@ body {
 
 .manage-segments-section h4 {
   color: #ecf0f1;
-  margin: 0 0 15px 0;
+  margin: 20px 0 15px 0;
   font-size: 16px;
   font-weight: 600;
+  position: relative;
+  padding-top: 15px;
+}
+
+.manage-segments-section h4::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #2980b9;
+  border-radius: 2px;
 }
 
 .manage-options {
@@ -1559,9 +1611,22 @@ body {
 
 .selection-method-section h4 {
   color: #ecf0f1;
-  margin: 0 0 15px 0;
+  margin: 20px 0 15px 0;
   font-size: 16px;
   font-weight: 600;
+  position: relative;
+  padding-top: 15px;
+}
+
+.selection-method-section h4::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #2980b9;
+  border-radius: 2px;
 }
 
 .selection-options {
@@ -1902,9 +1967,22 @@ body {
 
 .selection-method-section h4 {
   color: #ecf0f1;
-  margin: 0 0 15px 0;
+  margin: 20px 0 15px 0;
   font-size: 16px;
   font-weight: 600;
+  position: relative;
+  padding-top: 15px;
+}
+
+.selection-method-section h4::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #2980b9;
+  border-radius: 2px;
 }
 
 .selection-options {

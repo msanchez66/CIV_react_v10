@@ -1076,21 +1076,23 @@ const Sidebar: React.FC<SidebarProps> = ({
               Información complementaria (pk)
             </button>
           </div>
-          
-          {/* Borrar búsqueda button */}
-          <button 
-            className="borrar-busqueda-btn"
-            onClick={() => {
-              setSelectedSegment(null);
-              setSearchQuery('');
-              if ((window as any).clearMapHighlights) {
-                (window as any).clearMapHighlights();
-              }
-            }}
-          >
-            Borrar búsqueda
-          </button>
         </div>
+      )}
+
+      {/* Borrar búsqueda button - moved outside the manage-segments-section */}
+      {activeMenu === 'Manejar segmentos' && (
+        <button 
+          className="borrar-busqueda-btn"
+          onClick={() => {
+            setSelectedSegment(null);
+            setSearchQuery('');
+            if ((window as any).clearMapHighlights) {
+              (window as any).clearMapHighlights();
+            }
+          }}
+        >
+          Borrar búsqueda
+        </button>
       )}
 
       {selectedSegment && activeMenu !== 'Localización puntos' && activeMenu !== 'Localización grupal' && activeMenu !== 'Manejar segmentos' && (
