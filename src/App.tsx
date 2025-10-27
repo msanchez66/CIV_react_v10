@@ -20,6 +20,15 @@ function App() {
   const [dropdownUpdateTrigger, setDropdownUpdateTrigger] = useState<number>(0);
   const [cumulativeData, setCumulativeData] = useState<any>(null);
 
+  // Debug: Log when selectedSegment changes
+  useEffect(() => {
+    console.log('selectedSegment changed to:', selectedSegment);
+    if (selectedSegment) {
+      console.log('New selectedSegment ID:', selectedSegment.id);
+      console.log('New selectedSegment street_code:', selectedSegment.street_code);
+    }
+  }, [selectedSegment]);
+
   // Calculate statistics
   const statistics = useMemo(() => calculateStatistics(segments), [segments]);
 
@@ -51,8 +60,9 @@ function App() {
     }
   }, []);
 
-  // Handle dropdown selection - treat as new search
+  // Handle dropdown selection - treat exactly like segment click
   const handleDropdownSelection = useCallback((segmentId: string) => {
+    console.log('=== HANDLE DROPDOWN SELECTION ===');
     console.log('Dropdown selection triggered with segmentId:', segmentId);
     console.log('Available segments:', segments.length);
     
@@ -60,39 +70,31 @@ function App() {
     console.log('Found selected segment:', selected);
     
     if (selected) {
-      // Clear any previous highlights first
-      if ((window as any).unhighlightSegment) {
-        (window as any).unhighlightSegment();
-      }
-      
-      // Update the selected segment
+      console.log('Setting selectedSegment to:', selected);
+      // Use the exact same logic as handleSegmentClick
       setSelectedSegment(selected);
       console.log('Segment selected from dropdown:', selected);
       
-      // Force a re-render by updating the trigger
-      setDropdownUpdateTrigger(prev => prev + 1);
+      // Highlight segment and recenter map at zoom 18 - same as segment click
+      if ((window as any).highlightSegment) {
+        console.log('Calling highlightSegment from dropdown...');
+        (window as any).highlightSegment(selected);
+      } else {
+        console.error('highlightSegment function not available');
+      }
+      if ((window as any).recenterMapToSegment) {
+        console.log('Calling recenterMapToSegment from dropdown...');
+        (window as any).recenterMapToSegment(selected, 18);
+      } else {
+        console.error('recenterMapToSegment function not available');
+      }
       
-      // Force a re-render by updating the component state
-      // Use a longer timeout to ensure all state updates complete
-      setTimeout(() => {
-        console.log('Executing map operations for dropdown selection...');
-        
-        // Highlight the new segment
-        if ((window as any).highlightSegment) {
-          console.log('Calling highlightSegment...');
-          (window as any).highlightSegment(selected);
-        } else {
-          console.error('highlightSegment function not available');
-        }
-        
-        // Recenter map to the new segment
-        if ((window as any).recenterMapToSegment) {
-          console.log('Calling recenterMapToSegment...');
-          (window as any).recenterMapToSegment(selected, 18);
-        } else {
-          console.error('recenterMapToSegment function not available');
-        }
-      }, 300); // Longer delay to ensure state update
+      // Force a re-render by updating the trigger
+      setDropdownUpdateTrigger(prev => {
+        console.log('Updating dropdown trigger from', prev, 'to', prev + 1);
+        return prev + 1;
+      });
+      console.log('=== END HANDLE DROPDOWN SELECTION ===');
     } else {
       console.error('Segment not found with id:', segmentId);
     }
@@ -412,9 +414,13 @@ function App() {
                                 className="street-code-dropdown"
                                 value={selectedSegment.id}
                                 onChange={(e) => {
+                                  console.log('=== DROPDOWN CHANGE EVENT ===');
                                   console.log('Dropdown onChange triggered with value:', e.target.value);
-                                  console.log('Current selectedSegment.id before change:', selectedSegment.id);
+                                  console.log('Current selectedSegment.id before change:', selectedSegment?.id);
+                                  console.log('Event target value:', e.target.value);
+                                  console.log('Calling handleDropdownSelection...');
                                   handleDropdownSelection(e.target.value);
+                                  console.log('=== END DROPDOWN CHANGE EVENT ===');
                                 }}
                               >
                                 {sameStreetSegments.map(seg => (
