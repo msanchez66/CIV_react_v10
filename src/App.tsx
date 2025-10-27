@@ -64,8 +64,15 @@ function App() {
   const handleDropdownSelection = useCallback((segmentId: string) => {
     console.log('=== HANDLE DROPDOWN SELECTION START ===');
     console.log('Dropdown selection triggered with segmentId:', segmentId);
+    console.log('Type of segmentId:', typeof segmentId);
     console.log('Available segments:', segments.length);
     console.log('Looking for segment with id:', segmentId);
+    
+    // Log first few segments to see their IDs
+    console.log('First 5 segments:', segments.slice(0, 5).map(s => ({ 
+      id: s.id, 
+      street_code: s.street_code 
+    })));
     
     const selected = segments.find(s => s.id === segmentId);
     console.log('Found selected segment:', selected);
@@ -104,7 +111,8 @@ function App() {
       console.log('=== HANDLE DROPDOWN SELECTION END ===');
     } else {
       console.error('Segment not found with id:', segmentId);
-      console.log('Available segment IDs:', segments.map(s => s.id));
+      console.log('Available segment IDs (first 10):', segments.slice(0, 10).map(s => s.id));
+      console.log('Does segmentId match any segment?', segments.some(s => s.id === segmentId));
     }
   }, [segments]);
 
@@ -430,9 +438,7 @@ function App() {
                                   console.log('Event target value:', e.target.value);
                                   console.log('Calling handleDropdownSelection...');
                                   
-                                  // Add alert for immediate feedback
-                                  alert(`Dropdown changed to: ${e.target.value}`);
-                                  
+                                  // Immediately call handleDropdownSelection
                                   handleDropdownSelection(e.target.value);
                                   console.log('=== END DROPDOWN CHANGE EVENT ===');
                                 }}
