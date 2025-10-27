@@ -2257,6 +2257,7 @@ body {
   margin-top: 10px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
 }
 
@@ -2268,7 +2269,7 @@ body {
 }
 
 .street-code-dropdown {
-  width: 140px; /* Reduced to fit 14 characters */
+  width: 160px; /* Increased from 140px to 160px */
   padding: 8px;
   font-size: 14px;
   color: #2c3e50;
@@ -2297,7 +2298,7 @@ body {
   background: #e8e8e8;
   border-radius: 6px;
   text-align: center;
-  width: 140px; /* Match dropdown width */
+  width: 160px; /* Match dropdown width */
 }
 
 .segment-details-box {

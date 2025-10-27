@@ -37,10 +37,16 @@ function App() {
     
     // Highlight segment and recenter map at zoom 18
     if ((window as any).highlightSegment) {
+      console.log('Calling highlightSegment from segment click...');
       (window as any).highlightSegment(segment);
+    } else {
+      console.error('highlightSegment function not available');
     }
     if ((window as any).recenterMapToSegment) {
+      console.log('Calling recenterMapToSegment from segment click...');
       (window as any).recenterMapToSegment(segment, 18);
+    } else {
+      console.error('recenterMapToSegment function not available');
     }
   }, []);
 
@@ -72,7 +78,7 @@ function App() {
         } else {
           console.error('recenterMapToSegment function not available');
         }
-      }, 100); // Small delay to ensure state update
+      }, 200); // Increased delay to ensure state update
     } else {
       console.error('Segment not found with id:', segmentId);
     }
