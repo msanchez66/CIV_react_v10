@@ -441,22 +441,6 @@ function App() {
                         );
                       })()}
                     </div>
-                    
-                    {/* Additional info box */}
-                    <div className="segment-details-box">
-                      <div className="detail-item">
-                        <span className="detail-label">Longitud:</span>
-                        <span className="detail-value">
-                          {selectedSegment.length ? `${selectedSegment.length.toFixed(2)}m` : 'N/A'}
-                        </span>
-                      </div>
-                      <div className="detail-item">
-                        <span className="detail-label">Municipalidad:</span>
-                        <span className="detail-value">
-                          {selectedSegment.municipality || 'N/A'}
-                        </span>
-                      </div>
-                    </div>
                   </>
                 ) : (
                   <div className="no-segment-placeholder">
