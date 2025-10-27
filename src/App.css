@@ -2255,12 +2255,22 @@ body {
 
 .street-code-dropdown-container {
   margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.civ-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c3e50;
+  white-space: nowrap;
 }
 
 .street-code-dropdown {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
+  width: 140px; /* Reduced to fit 14 characters */
+  padding: 8px;
+  font-size: 14px;
   color: #2c3e50;
   background: white;
   border: 1px solid #bbb;
@@ -2280,13 +2290,14 @@ body {
 }
 
 .street-code-display {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   color: #2c3e50;
-  padding: 10px;
+  padding: 8px;
   background: #e8e8e8;
   border-radius: 6px;
   text-align: center;
+  width: 140px; /* Match dropdown width */
 }
 
 .segment-details-box {

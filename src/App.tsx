@@ -56,20 +56,23 @@ function App() {
       setSelectedSegment(selected);
       console.log('Segment selected from dropdown:', selected);
       
-      // Highlight segment and recenter map at zoom 18
-      if ((window as any).highlightSegment) {
-        console.log('Calling highlightSegment...');
-        (window as any).highlightSegment(selected);
-      } else {
-        console.error('highlightSegment function not available');
-      }
-      
-      if ((window as any).recenterMapToSegment) {
-        console.log('Calling recenterMapToSegment...');
-        (window as any).recenterMapToSegment(selected, 18);
-      } else {
-        console.error('recenterMapToSegment function not available');
-      }
+      // Use setTimeout to ensure state update completes before calling map functions
+      setTimeout(() => {
+        // Highlight segment and recenter map at zoom 18
+        if ((window as any).highlightSegment) {
+          console.log('Calling highlightSegment...');
+          (window as any).highlightSegment(selected);
+        } else {
+          console.error('highlightSegment function not available');
+        }
+        
+        if ((window as any).recenterMapToSegment) {
+          console.log('Calling recenterMapToSegment...');
+          (window as any).recenterMapToSegment(selected, 18);
+        } else {
+          console.error('recenterMapToSegment function not available');
+        }
+      }, 100); // Small delay to ensure state update
     } else {
       console.error('Segment not found with id:', segmentId);
     }
@@ -382,6 +385,7 @@ function App() {
                         
                         return (
                           <div className="street-code-dropdown-container">
+                            <div className="civ-label">CIV:</div>
                             {sameStreetSegments.length > 1 ? (
                               <select 
                                 key={`dropdown-${selectedSegment.id}`}
