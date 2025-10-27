@@ -1393,6 +1393,33 @@ body {
   grid-row: 1 / -1;
 }
 
+/* Clear Selection Button */
+.clear-selection-btn {
+  width: calc(100% - 30px);
+  margin: 15px;
+  padding: 12px 20px;
+  background: #e74c3c;
+  color: white;
+  border: 2px solid #c0392b;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clear-selection-btn:hover {
+  background: #c0392b;
+  border-color: #a93226;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.clear-selection-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 /* Segment Quadrant Title */
 .segment-quadrant-title {
   color: #2c3e50;

@@ -282,6 +282,14 @@ function App() {
               <div className="left-column-info">
                 {selectedSegment ? (
                   <>
+                    {/* Clear selection button */}
+                    <button 
+                      className="clear-selection-btn"
+                      onClick={handleClearSelection}
+                    >
+                      ✕ Deseleccionar segmento
+                    </button>
+                    
                     {/* Title with fancy blue line */}
                     <h4 className="segment-quadrant-title">Información del segmento</h4>
                     
