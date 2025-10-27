@@ -550,7 +550,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     }
   }, [pointsList]);
 
-  const parseFileContent = (content: string, filename: string) => {
+  const parseFileContent = (content: string, _filename: string) => {
     try {
       const lines = content.split('\n').filter(line => line.trim());
       const points: Array<{lat: number, lng: number, name?: string, referencia?: string}> = [];
