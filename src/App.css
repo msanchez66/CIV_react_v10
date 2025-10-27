@@ -1369,6 +1369,34 @@ body {
 .manage-btn:hover {
   background: #2980b9;
 }
+
+/* Borrar búsqueda button */
+.borrar-busqueda-btn {
+  background: #e74c3c;
+  color: white;
+  border: 2px solid #c0392b;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.borrar-busqueda-btn:hover {
+  background: #c0392b;
+  border-color: #a93226;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.borrar-busqueda-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 /* Split Layout for Manejar Segmentos */
 .main-content.split-layout {
   display: grid;
@@ -2015,4 +2043,100 @@ body {
 
 .mark-point-btn:hover {
   background: #229954;
+}
+
+
+/* First Quadrant Styles for Manejar segmentos */
+.segment-quadrant-title {
+  color: #2c3e50;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 20px 15px 10px 15px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #2980b9;
+}
+
+.street-info-box {
+  background: #f5f5f5;
+  border: 2px solid #bbb;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px;
+  text-align: center;
+}
+
+.street-name-large {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.street-code-dropdown-container {
+  margin-top: 10px;
+}
+
+.street-code-dropdown {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: #2c3e50;
+  background: white;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.street-code-dropdown:hover {
+  border-color: #2980b9;
+}
+
+.street-code-dropdown:focus {
+  outline: none;
+  border-color: #2980b9;
+  box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.1);
+}
+
+.street-code-display {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2c3e50;
+  padding: 10px;
+  background: #e8e8e8;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.segment-details-box {
+  background: #f5f5f5;
+  border: 2px solid #bbb;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 14px;
+}
+
+.detail-value {
+  color: #2c3e50;
+  font-size: 14px;
+  font-weight: 400;
 }

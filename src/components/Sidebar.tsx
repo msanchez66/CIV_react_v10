@@ -3,8 +3,10 @@ import { Segment } from '../types/Segment';
 
 interface SidebarProps {
   selectedSegment: Segment | null;
+  setSelectedSegment: React.Dispatch<React.SetStateAction<Segment | null>>;
   onSearch: (query: string) => void;
   searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   onClearSelection: () => void;
   onLoadSegments: () => void;
   statistics: { maxLength: number; minLength: number };
@@ -25,8 +27,10 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ 
   selectedSegment, 
+  setSelectedSegment,
   onSearch, 
   searchQuery, 
+  setSearchQuery,
   onClearSelection,
   onLoadSegments,
   statistics,
@@ -1072,6 +1076,20 @@ const Sidebar: React.FC<SidebarProps> = ({
               Actualizar información complementaria del activo
             </button>
           </div>
+          
+          {/* Borrar búsqueda button */}
+          <button 
+            className="borrar-busqueda-btn"
+            onClick={() => {
+              setSelectedSegment(null);
+              setSearchQuery('');
+              if ((window as any).clearMapHighlights) {
+                (window as any).clearMapHighlights();
+              }
+            }}
+          >
+            Borrar búsqueda
+          </button>
         </div>
       )}
 
