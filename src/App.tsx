@@ -64,6 +64,7 @@ function App() {
   const handleDropdownSelection = useCallback((segmentId: string) => {
     console.log('=== DROPDOWN SELECTION: Treating as NEW SEARCH ===');
     console.log('Selected segment ID from dropdown:', segmentId);
+    console.log('Type of segmentId:', typeof segmentId);
     
     // Find the segment in our segments array
     const selected = segments.find(s => s.id === segmentId);
@@ -71,10 +72,16 @@ function App() {
     
     if (!selected) {
       console.error('Segment not found with id:', segmentId);
+      console.log('Available segment IDs (first 10):', segments.slice(0, 10).map(s => ({ id: s.id, street_code: s.street_code })));
       return;
     }
     
     console.log('Treating dropdown selection as new search for segment:', selected.street_code);
+    console.log('Selected segment details:', {
+      id: selected.id,
+      street_code: selected.street_code,
+      street_name: selected.street_name || selected.name
+    });
     
     // Call handleSegmentClick directly - this will:
     // 1. Set the selected segment
@@ -416,11 +423,14 @@ function App() {
                                   console.log('=== END DROPDOWN CHANGE EVENT ===');
                                 }}
                               >
-                                {sameStreetSegments.map(seg => (
-                                  <option key={seg.id} value={seg.id}>
-                                    {seg.street_code || seg.id}
-                                  </option>
-                                ))}
+                                {sameStreetSegments.map(seg => {
+                                  console.log('Creating option for segment:', { id: seg.id, street_code: seg.street_code });
+                                  return (
+                                    <option key={seg.id} value={seg.id}>
+                                      {seg.street_code || seg.id}
+                                    </option>
+                                  );
+                                })}
                               </select>
                             ) : (
                               <div className="street-code-display">
