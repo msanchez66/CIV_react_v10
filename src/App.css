@@ -107,16 +107,14 @@ body {
   z-index: 1000;
 }
 
-/* Blue lines before all section headers */
-.sidebar h4,
-.sidebar h5 {
+/* Blue lines before all section headers - only for main sections (h4), not subsections (h5) */
+.sidebar h4 {
   position: relative;
   padding-top: 15px;
   margin-top: 20px;
 }
 
-.sidebar h4::before,
-.sidebar h5::before {
+.sidebar h4::before {
   content: '' !important;
   position: absolute !important;
   top: 0 !important;
@@ -128,8 +126,8 @@ body {
   display: block !important;
 }
 
-/* Hide blue line for window-description h5 elements */
-.window-description h5::before {
+/* Hide blue lines for all h5 elements (subsections) */
+.sidebar h5::before {
   display: none !important;
 }
 
@@ -913,10 +911,11 @@ body {
 
 /* Statistics */
 .statistics {
-  padding: 0 20px 20px 20px;
-  background: #34495e;
-  border-top: 1px solid #2c3e50;
-  margin-top: 0;
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(52, 73, 94, 0.8);
+  border-radius: 8px;
+  border: 1px solid #34495e;
   position: relative;
 }
 
