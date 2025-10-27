@@ -46,7 +46,12 @@ function App() {
 
   // Handle dropdown selection
   const handleDropdownSelection = useCallback((segmentId: string) => {
+    console.log('Dropdown selection triggered with segmentId:', segmentId);
+    console.log('Available segments:', segments.length);
+    
     const selected = segments.find(s => s.id === segmentId);
+    console.log('Found selected segment:', selected);
+    
     if (selected) {
       setSelectedSegment(selected);
       console.log('Segment selected from dropdown:', selected);
@@ -58,6 +63,8 @@ function App() {
       if ((window as any).recenterMapToSegment) {
         (window as any).recenterMapToSegment(selected, 18);
       }
+    } else {
+      console.error('Segment not found with id:', segmentId);
     }
   }, [segments]);
 
@@ -363,9 +370,13 @@ function App() {
                           <div className="street-code-dropdown-container">
                             {sameStreetSegments.length > 1 ? (
                               <select 
+                                key={`dropdown-${selectedSegment.id}`}
                                 className="street-code-dropdown"
                                 value={selectedSegment.id}
-                                onChange={(e) => handleDropdownSelection(e.target.value)}
+                                onChange={(e) => {
+                                  console.log('Dropdown onChange triggered with value:', e.target.value);
+                                  handleDropdownSelection(e.target.value);
+                                }}
                               >
                                 {sameStreetSegments.map(seg => (
                                   <option key={seg.id} value={seg.id}>
