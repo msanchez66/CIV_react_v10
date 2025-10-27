@@ -108,13 +108,15 @@ body {
 }
 
 /* Blue lines before all section headers */
-.sidebar h4 {
+.sidebar h4,
+.sidebar h5 {
   position: relative;
   padding-top: 15px;
   margin-top: 20px;
 }
 
-.sidebar h4::before {
+.sidebar h4::before,
+.sidebar h5::before {
   content: '';
   position: absolute;
   top: 0;
@@ -125,12 +127,14 @@ body {
   border-radius: 2px;
 }
 
-.sidebar h4:first-child {
+.sidebar h4:first-child,
+.sidebar h5:first-child {
   margin-top: 0;
   padding-top: 0;
 }
 
-.sidebar h4:first-child::before {
+.sidebar h4:first-child::before,
+.sidebar h5:first-child::before {
   display: none;
 }
 
