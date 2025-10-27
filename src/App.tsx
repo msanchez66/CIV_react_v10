@@ -181,7 +181,11 @@ function App() {
     // Clear previous searches when switching menu items
     setSelectedSegment(null);
     setSearchQuery('');
-    setSelectedAction('');
+    if (menu === 'Manejar segmentos') {
+      setSelectedAction('actualizar'); // Set default action for "Manejar segmentos"
+    } else {
+      setSelectedAction('');
+    }
     
     // Unhighlight any selected segment
     if ((window as any).unhighlightSegment) {
@@ -272,8 +276,8 @@ function App() {
           selectedAction={selectedAction}
           setSelectedAction={setSelectedAction}
         />
-        <div className={`main-content ${activeMenu === 'Manejar segmentos' && selectedAction ? 'split-layout' : ''}`}>
-          {activeMenu === 'Manejar segmentos' && selectedAction ? (
+        <div className={`main-content ${activeMenu === 'Manejar segmentos' ? 'split-layout' : ''}`}>
+          {activeMenu === 'Manejar segmentos' ? (
             <>
               <div className="left-column-info">
                 <div className="manage-info">
