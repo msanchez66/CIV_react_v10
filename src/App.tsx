@@ -62,15 +62,22 @@ function App() {
 
   // Handle dropdown selection - treat exactly like segment click
   const handleDropdownSelection = useCallback((segmentId: string) => {
-    console.log('=== HANDLE DROPDOWN SELECTION ===');
+    console.log('=== HANDLE DROPDOWN SELECTION START ===');
     console.log('Dropdown selection triggered with segmentId:', segmentId);
     console.log('Available segments:', segments.length);
+    console.log('Looking for segment with id:', segmentId);
     
     const selected = segments.find(s => s.id === segmentId);
     console.log('Found selected segment:', selected);
     
     if (selected) {
       console.log('Setting selectedSegment to:', selected);
+      console.log('Selected segment details:', {
+        id: selected.id,
+        street_code: selected.street_code,
+        street_name: selected.street_name || selected.name
+      });
+      
       // Use the exact same logic as handleSegmentClick
       setSelectedSegment(selected);
       console.log('Segment selected from dropdown:', selected);
@@ -94,9 +101,10 @@ function App() {
         console.log('Updating dropdown trigger from', prev, 'to', prev + 1);
         return prev + 1;
       });
-      console.log('=== END HANDLE DROPDOWN SELECTION ===');
+      console.log('=== HANDLE DROPDOWN SELECTION END ===');
     } else {
       console.error('Segment not found with id:', segmentId);
+      console.log('Available segment IDs:', segments.map(s => s.id));
     }
   }, [segments]);
 
@@ -404,6 +412,8 @@ function App() {
                           code: s.street_code, 
                           name: s.street_name || s.name 
                         })));
+                        console.log('Current selectedSegment:', selectedSegment);
+                        console.log('Current selectedSegment.id:', selectedSegment?.id);
                         
                         return (
                           <div className="street-code-dropdown-container">
@@ -419,6 +429,10 @@ function App() {
                                   console.log('Current selectedSegment.id before change:', selectedSegment?.id);
                                   console.log('Event target value:', e.target.value);
                                   console.log('Calling handleDropdownSelection...');
+                                  
+                                  // Add alert for immediate feedback
+                                  alert(`Dropdown changed to: ${e.target.value}`);
+                                  
                                   handleDropdownSelection(e.target.value);
                                   console.log('=== END DROPDOWN CHANGE EVENT ===');
                                 }}
