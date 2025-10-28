@@ -338,7 +338,7 @@ function App() {
 
   // Handle basic info value change
   const handleBasicInfoValueChange = useCallback((fieldName: string, value: string) => {
-    setSegmentBasicInfo(prev => ({
+    setSegmentBasicInfo((prev: any) => ({
       ...prev,
       [fieldName]: value
     }));
