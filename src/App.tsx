@@ -19,6 +19,9 @@ function App() {
   const [selectedAction, setSelectedAction] = useState<string>('');
   const [dropdownUpdateTrigger, setDropdownUpdateTrigger] = useState<number>(0);
   const [cumulativeData, setCumulativeData] = useState<any>(null);
+  const [pkData, setPkData] = useState<any>(null);
+  const [selectedElementGroup, setSelectedElementGroup] = useState<string>('');
+  const [filteredPkElements, setFilteredPkElements] = useState<any[]>([]);
 
   // Debug: Log when selectedSegment changes
   useEffect(() => {
@@ -38,6 +41,14 @@ function App() {
       .then(res => res.json())
       .then(data => setCumulativeData(data))
       .catch(err => console.error('Error loading cumulative data:', err));
+  }, []);
+
+  // Fetch PK elements data
+  useEffect(() => {
+    fetch('/pk_elements_data.json')
+      .then(res => res.json())
+      .then(data => setPkData(data))
+      .catch(err => console.error('Error loading PK data:', err));
   }, []);
 
   // Handle segment click
@@ -248,6 +259,28 @@ function App() {
     }
   }, []);
 
+  // Handle PK element group selection
+  const handleElementGroupChange = useCallback((group: string) => {
+    setSelectedElementGroup(group);
+    if (pkData && group) {
+      const filtered = pkData.elements.filter((element: any) => element.x_element_group === group);
+      setFilteredPkElements(filtered);
+    } else {
+      setFilteredPkElements([]);
+    }
+  }, [pkData]);
+
+  // Handle PK element value change
+  const handlePkElementValueChange = useCallback((pkCode: string, value: string) => {
+    setFilteredPkElements(prev => 
+      prev.map(element => 
+        element.pk_code === pkCode 
+          ? { ...element, user_value: value }
+          : element
+      )
+    );
+  }, []);
+
   // Handle menu change and clear searches
   const handleMenuChange = useCallback((menu: string) => {
     setActiveMenu(menu);
@@ -258,6 +291,12 @@ function App() {
       setSelectedAction('actualizar'); // Set default action for "Manejar segmentos"
     } else {
       setSelectedAction('');
+    }
+    
+    // Clear PK data when switching away from Manejar segmentos
+    if (menu !== 'Manejar segmentos') {
+      setSelectedElementGroup('');
+      setFilteredPkElements([]);
     }
     
     // Unhighlight any selected segment
@@ -441,6 +480,67 @@ function App() {
                         );
                       })()}
                     </div>
+                    
+                    {/* PK Information Section - only show when "Información complementaria (pk)" is selected */}
+                    {selectedAction === 'complementaria' && (
+                      <>
+                        {/* PK Information Title */}
+                        <h4 className="pk-info-title">Información complementaria</h4>
+                        
+                        {/* Infrastructure Type Dropdown */}
+                        <div className="pk-infrastructure-type">
+                          <label>Tipo de Infraestructura:</label>
+                          <select 
+                            value={selectedElementGroup}
+                            onChange={(e) => handleElementGroupChange(e.target.value)}
+                            className="pk-dropdown"
+                          >
+                            <option value="">Seleccionar tipo...</option>
+                            {pkData?.element_groups?.map((group: string) => (
+                              <option key={group} value={group}>
+                                {group}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        
+                        {/* PK Elements Table */}
+                        {filteredPkElements.length > 0 && (
+                          <div className="pk-elements-table-container">
+                            <table className="pk-elements-table">
+                              <thead>
+                                <tr>
+                                  <th>PK</th>
+                                  <th>Elemento</th>
+                                  <th>Categoría</th>
+                                  <th>Unidades</th>
+                                  <th>Valor</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {filteredPkElements.map((element: any) => (
+                                  <tr key={element.pk_code}>
+                                    <td>{element.pk_code}</td>
+                                    <td>{element.x_element}</td>
+                                    <td>{element.cobie_category}</td>
+                                    <td>{element.lod}</td>
+                                    <td>
+                                      <input
+                                        type="text"
+                                        value={element.user_value}
+                                        onChange={(e) => handlePkElementValueChange(element.pk_code, e.target.value)}
+                                        className="pk-value-input"
+                                        placeholder="Ingrese valor..."
+                                      />
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        )}
+                      </>
+                    )}
                   </>
                 ) : (
                   <div className="no-segment-placeholder">

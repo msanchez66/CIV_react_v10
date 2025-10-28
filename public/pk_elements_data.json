@@ -1,0 +1,555 @@
+{
+  "element_groups": [
+    "Estructura de Pavimento",
+    "Superficie de Movimiento",
+    "Reino Peatonal",
+    "Alumbrado Público & ITS",
+    "Energía Eléctrica",
+    "Telecomunicaciones",
+    "Ciclo Agua Potable",
+    "Ciclo Aguas Residuales",
+    "Ciclo Agua Lluvia",
+    "Gas & Otros Fluidos",
+    "Arbolado & Activos Verdes",
+    "Mobiliario Urbano & Comodidad",
+    "Micro-Movilidad & Nuevas Movilidades"
+  ],
+  "elements": [
+    {
+      "pk_code": "pk_0101",
+      "x_element": "Terreno natural / Sub-grade",
+      "x_element_group": "Estructura de Pavimento",
+      "cobie_category": "Geotechnical_Earthworks_Sub-grade",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0102",
+      "x_element": "Sub-base granular",
+      "x_element_group": "Estructura de Pavimento",
+      "cobie_category": "Pavements_Granular_Sub-base",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0103",
+      "x_element": "Sub-base cemento-tratada CTB",
+      "x_element_group": "Estructura de Pavimento",
+      "cobie_category": "Pavements_Cement_Treated_Sub-base",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0104",
+      "x_element": "Base granular",
+      "x_element_group": "Estructura de Pavimento",
+      "cobie_category": "Pavements_Granular_Base",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0105",
+      "x_element": "Base asfáltica DBM",
+      "x_element_group": "Estructura de Pavimento",
+      "cobie_category": "Pavements_Asphalt_Base",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0106",
+      "x_element": "Capa de rodadura SMA",
+      "x_element_group": "Estructura de Pavimento",
+      "cobie_category": "Pavements_Asphalt_Surface",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0107",
+      "x_element": "Loseta H-30",
+      "x_element_group": "Estructura de Pavimento",
+      "cobie_category": "Pavements_Concrete_Slab",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0108",
+      "x_element": "Adoquín piedra 100 mm",
+      "x_element_group": "Estructura de Pavimento",
+      "cobie_category": "Pavements_Unit_Paver",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0109",
+      "x_element": "Carpeta permeable (porous asphalt)",
+      "x_element_group": "Estructura de Pavimento",
+      "cobie_category": "Pavements_Porous_Asphalt",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0201",
+      "x_element": "Calzada (carriles)",
+      "x_element_group": "Superficie de Movimiento",
+      "cobie_category": "Pavements_Road_Surface",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0202",
+      "x_element": "Carril bus BRT",
+      "x_element_group": "Superficie de Movimiento",
+      "cobie_category": "Pavements_Bus_Lane",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0203",
+      "x_element": "Ciclo-carril",
+      "x_element_group": "Superficie de Movimiento",
+      "cobie_category": "Pavements_Cycle_Track",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0204",
+      "x_element": "Isleta de giro",
+      "x_element_group": "Superficie de Movimiento",
+      "cobie_category": "Pavements_Channel_Island",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0205",
+      "x_element": "Paso peatonal (zebra)",
+      "x_element_group": "Superficie de Movimiento",
+      "cobie_category": "Pavements_Crosswalk",
+      "lod": "350",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0301",
+      "x_element": "Acera / sidewalk",
+      "x_element_group": "Reino Peatonal",
+      "cobie_category": "Pavements_Pedestrian",
+      "lod": "Area",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0302",
+      "x_element": "Bordillo & canaleta",
+      "x_element_group": "Reino Peatonal",
+      "cobie_category": "Concrete_Curb_Gutter",
+      "lod": "Volume",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0303",
+      "x_element": "Rampas peatonales accesibles",
+      "x_element_group": "Reino Peatonal",
+      "cobie_category": "Pavements_Access_Ramp",
+      "lod": "Area",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0401",
+      "x_element": "Poste alumbrado ornamental",
+      "x_element_group": "Alumbrado Público & ITS",
+      "cobie_category": "Lighting_Street_Pole",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0402",
+      "x_element": "Luminaria LED",
+      "x_element_group": "Alumbrado Público & ITS",
+      "cobie_category": "Lighting_LED_Luminaire",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0403",
+      "x_element": "Centro de control semáforos",
+      "x_element_group": "Alumbrado Público & ITS",
+      "cobie_category": "ITS_Signal_Controller",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0404",
+      "x_element": "Cámara CCTV tráfico",
+      "x_element_group": "Alumbrado Público & ITS",
+      "cobie_category": "ITS_CCTV_Camera",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0405",
+      "x_element": "Detector lazo",
+      "x_element_group": "Alumbrado Público & ITS",
+      "cobie_category": "ITS_Loop_Detector",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0501",
+      "x_element": "Cable MT 15 kV XLPE",
+      "x_element_group": "Energía Eléctrica",
+      "cobie_category": "Electrical_MV_Cable",
+      "lod": "Length",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0502",
+      "x_element": "Transformador pedestal 500 kVA",
+      "x_element_group": "Energía Eléctrica",
+      "cobie_category": "Electrical_Pad_Transformer",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0503",
+      "x_element": "Caja de válvulas MT",
+      "x_element_group": "Energía Eléctrica",
+      "cobie_category": "Electrical_Switchgear",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0601",
+      "x_element": "Fibre óptica 96 núcleos",
+      "x_element_group": "Telecomunicaciones",
+      "cobie_category": "Telecom_Fibre_Cable",
+      "lod": "Length",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0602",
+      "x_element": "Caja empalme fibra",
+      "x_element_group": "Telecomunicaciones",
+      "cobie_category": "Telecom_Fibre_Joint_Box",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0603",
+      "x_element": "Antena 5G small-cell",
+      "x_element_group": "Telecomunicaciones",
+      "cobie_category": "Telecom_5G_Small_Cell",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0701",
+      "x_element": "Tubería principal PVC 250 mm",
+      "x_element_group": "Ciclo Agua Potable",
+      "cobie_category": "Water_Distribution_Pipe",
+      "lod": "Length",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0702",
+      "x_element": "Hidrante contra incendios",
+      "x_element_group": "Ciclo Agua Potable",
+      "cobie_category": "Water_Fire_Hydrant",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0703",
+      "x_element": "Válvula de seccionamiento",
+      "x_element_group": "Ciclo Agua Potable",
+      "cobie_category": "Water_Valve",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0801",
+      "x_element": "Colector PVC 400 mm",
+      "x_element_group": "Ciclo Aguas Residuales",
+      "cobie_category": "WasteWater_Pipe",
+      "lod": "Length",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0802",
+      "x_element": "Registro de visita",
+      "x_element_group": "Ciclo Aguas Residuales",
+      "cobie_category": "WasteWater_Manhole",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0901",
+      "x_element": "Colector storm 600 mm",
+      "x_element_group": "Ciclo Agua Lluvia",
+      "cobie_category": "StormWater_Pipe",
+      "lod": "Length",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0902",
+      "x_element": "Sumidero de acera",
+      "x_element_group": "Ciclo Agua Lluvia",
+      "cobie_category": "StormWater_Inlet",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0903",
+      "x_element": "Separador de hidrocarburos",
+      "x_element_group": "Ciclo Agua Lluvia",
+      "cobie_category": "StormWater_Oil_Grit_Separator",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1001",
+      "x_element": "Tubería gas PE 160 mm",
+      "x_element_group": "Gas & Otros Fluidos",
+      "cobie_category": "Gas_PE_Pipe",
+      "lod": "Length",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1002",
+      "x_element": "Válvula gas PE",
+      "x_element_group": "Gas & Otros Fluidos",
+      "cobie_category": "Gas_Valve",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1101",
+      "x_element": "Árbol de calle (pozo 30 m³)",
+      "x_element_group": "Arbolado & Activos Verdes",
+      "cobie_category": "Landscape_Street_Tree",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1102",
+      "x_element": "Rejilla de protección árbol",
+      "x_element_group": "Arbolado & Activos Verdes",
+      "cobie_category": "Landscape_Tree_Grate",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1103",
+      "x_element": "Maceta urbana elevada",
+      "x_element_group": "Arbolado & Activos Verdes",
+      "cobie_category": "Landscape_Planter_Box",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1201",
+      "x_element": "Banco urbano",
+      "x_element_group": "Mobiliario Urbano & Comodidad",
+      "cobie_category": "StreetFurniture_Bench",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1202",
+      "x_element": "Papelera 120 L",
+      "x_element_group": "Mobiliario Urbano & Comodidad",
+      "cobie_category": "StreetFurniture_Litter_Bin",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1203",
+      "x_element": "Aparcamiento bicicletas",
+      "x_element_group": "Mobiliario Urbano & Comodidad",
+      "cobie_category": "StreetFurniture_Bike_Rack",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1204",
+      "x_element": "Parada bus + marquesina",
+      "x_element_group": "Mobiliario Urbano & Comodidad",
+      "cobie_category": "StreetFurniture_Bus_Shelter",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1205",
+      "x_element": "Bebedero + fuente perros",
+      "x_element_group": "Mobiliario Urbano & Comodidad",
+      "cobie_category": "StreetFurniture_Drinking_Fountain",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0702",
+      "x_element": "Hidrante contra incendios",
+      "x_element_group": "Ciclo Agua Potable",
+      "cobie_category": "Water_Fire_Hydrant",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0703",
+      "x_element": "Válvula de seccionamiento",
+      "x_element_group": "Ciclo Agua Potable",
+      "cobie_category": "Water_Valve",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0801",
+      "x_element": "Colector PVC 400 mm",
+      "x_element_group": "Ciclo Aguas Residuales",
+      "cobie_category": "WasteWater_Pipe",
+      "lod": "Length",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0802",
+      "x_element": "Registro de visita",
+      "x_element_group": "Ciclo Aguas Residuales",
+      "cobie_category": "WasteWater_Manhole",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0901",
+      "x_element": "Colector storm 600 mm",
+      "x_element_group": "Ciclo Agua Lluvia",
+      "cobie_category": "StormWater_Pipe",
+      "lod": "Length",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0902",
+      "x_element": "Sumidero de acera",
+      "x_element_group": "Ciclo Agua Lluvia",
+      "cobie_category": "StormWater_Inlet",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_0903",
+      "x_element": "Separador de hidrocarburos",
+      "x_element_group": "Ciclo Agua Lluvia",
+      "cobie_category": "StormWater_Oil_Grit_Separator",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1001",
+      "x_element": "Tubería gas PE 160 mm",
+      "x_element_group": "Gas & Otros Fluidos",
+      "cobie_category": "Gas_PE_Pipe",
+      "lod": "Length",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1002",
+      "x_element": "Válvula gas PE",
+      "x_element_group": "Gas & Otros Fluidos",
+      "cobie_category": "Gas_Valve",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1101",
+      "x_element": "Árbol de calle (pozo 30 m³)",
+      "x_element_group": "Arbolado & Activos Verdes",
+      "cobie_category": "Landscape_Street_Tree",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1102",
+      "x_element": "Rejilla de protección árbol",
+      "x_element_group": "Arbolado & Activos Verdes",
+      "cobie_category": "Landscape_Tree_Grate",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1103",
+      "x_element": "Maceta urbana elevada",
+      "x_element_group": "Arbolado & Activos Verdes",
+      "cobie_category": "Landscape_Planter_Box",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1201",
+      "x_element": "Banco urbano",
+      "x_element_group": "Mobiliario Urbano & Comodidad",
+      "cobie_category": "StreetFurniture_Bench",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1202",
+      "x_element": "Papelera 120 L",
+      "x_element_group": "Mobiliario Urbano & Comodidad",
+      "cobie_category": "StreetFurniture_Litter_Bin",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1203",
+      "x_element": "Aparcamiento bicicletas",
+      "x_element_group": "Mobiliario Urbano & Comodidad",
+      "cobie_category": "StreetFurniture_Bike_Rack",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1204",
+      "x_element": "Parada bus + marquesina",
+      "x_element_group": "Mobiliario Urbano & Comodidad",
+      "cobie_category": "StreetFurniture_Bus_Shelter",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1205",
+      "x_element": "Bebedero + fuente perros",
+      "x_element_group": "Mobiliario Urbano & Comodidad",
+      "cobie_category": "StreetFurniture_Drinking_Fountain",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1206",
+      "x_element": "Bola de acero (bolardo fijo)",
+      "x_element_group": "Mobiliario Urbano & Comodidad",
+      "cobie_category": "StreetFurniture_Bollard",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1301",
+      "x_element": "Cargador EV 22 kW",
+      "x_element_group": "Micro-Movilidad & Nuevas Movilidades",
+      "cobie_category": "eMobility_EV_Charger",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1302",
+      "x_element": "Estación bicicleta compartida",
+      "x_element_group": "Micro-Movilidad & Nuevas Movilidades",
+      "cobie_category": "eMobility_Bike_Share_Station",
+      "lod": "Body",
+      "user_value": ""
+    },
+    {
+      "pk_code": "pk_1303",
+      "x_element": "Robot delivery drop-zone",
+      "x_element_group": "Micro-Movilidad & Nuevas Movilidades",
+      "cobie_category": "eMobility_Robot_Zone",
+      "lod": "Area",
+      "user_value": ""
+    }
+  ]
+}

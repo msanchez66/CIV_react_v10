@@ -1070,8 +1070,8 @@ const Sidebar: React.FC<SidebarProps> = ({
               Información básica
             </button>
             <button 
-              className={`manage-btn ${selectedAction === 'ver' ? 'active-action' : ''}`}
-              onClick={() => setSelectedAction('ver')}
+              className={`manage-btn ${selectedAction === 'complementaria' ? 'active-action' : ''}`}
+              onClick={() => setSelectedAction('complementaria')}
             >
               Información complementaria (pk)
             </button>
