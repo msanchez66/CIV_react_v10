@@ -22,6 +22,7 @@ function App() {
   const [pkData, setPkData] = useState<any>(null);
   const [selectedElementGroup, setSelectedElementGroup] = useState<string>('');
   const [filteredPkElements, setFilteredPkElements] = useState<any[]>([]);
+  const [pkDataLoading, setPkDataLoading] = useState<boolean>(false);
 
   // Debug: Log when selectedSegment changes
   useEffect(() => {
@@ -43,13 +44,30 @@ function App() {
       .catch(err => console.error('Error loading cumulative data:', err));
   }, []);
 
-  // Fetch PK elements data
+  // Fetch PK elements data - lazy loading when needed
+  const loadPkData = useCallback(async () => {
+    if (pkData) return pkData; // Already loaded
+    
+    setPkDataLoading(true);
+    try {
+      const response = await fetch('/pk_elements_optimized.json');
+      const data = await response.json();
+      setPkData(data);
+      return data;
+    } catch (err) {
+      console.error('Error loading PK data:', err);
+      return null;
+    } finally {
+      setPkDataLoading(false);
+    }
+  }, [pkData]);
+
+  // Preload PK data when complementaria action is selected
   useEffect(() => {
-    fetch('/pk_elements_data.json')
-      .then(res => res.json())
-      .then(data => setPkData(data))
-      .catch(err => console.error('Error loading PK data:', err));
-  }, []);
+    if (selectedAction === 'complementaria' && !pkData && !pkDataLoading) {
+      loadPkData();
+    }
+  }, [selectedAction, pkData, pkDataLoading, loadPkData]);
 
   // Handle segment click
   const handleSegmentClick = useCallback((segment: Segment) => {
@@ -260,21 +278,29 @@ function App() {
   }, []);
 
   // Handle PK element group selection
-  const handleElementGroupChange = useCallback((group: string) => {
+  const handleElementGroupChange = useCallback(async (group: string) => {
     setSelectedElementGroup(group);
-    if (pkData && group) {
-      const filtered = pkData.elements.filter((element: any) => element.x_element_group === group);
+    
+    // Load PK data if not already loaded
+    if (!pkData) {
+      await loadPkData();
+    }
+    
+    // Wait for data to be loaded, then filter
+    const currentPkData = pkData || await loadPkData();
+    if (currentPkData && group) {
+      const filtered = currentPkData.elements.filter((element: any) => element.group === group);
       setFilteredPkElements(filtered);
     } else {
       setFilteredPkElements([]);
     }
-  }, [pkData]);
+  }, [pkData, loadPkData]);
 
   // Handle PK element value change
   const handlePkElementValueChange = useCallback((pkCode: string, value: string) => {
     setFilteredPkElements(prev => 
       prev.map(element => 
-        element.pk_code === pkCode 
+        element.pk === pkCode 
           ? { ...element, user_value: value }
           : element
       )
@@ -490,18 +516,22 @@ function App() {
                         {/* Infrastructure Type Dropdown */}
                         <div className="pk-infrastructure-type">
                           <label>Tipo de Infraestructura:</label>
-                          <select 
-                            value={selectedElementGroup}
-                            onChange={(e) => handleElementGroupChange(e.target.value)}
-                            className="pk-dropdown"
-                          >
-                            <option value="">Seleccionar tipo...</option>
-                            {pkData?.element_groups?.map((group: string) => (
-                              <option key={group} value={group}>
-                                {group}
-                              </option>
-                            ))}
-                          </select>
+                          {pkDataLoading ? (
+                            <div className="pk-loading">Cargando datos...</div>
+                          ) : (
+                            <select 
+                              value={selectedElementGroup}
+                              onChange={(e) => handleElementGroupChange(e.target.value)}
+                              className="pk-dropdown"
+                            >
+                              <option value="">Seleccionar tipo...</option>
+                              {pkData?.groups?.map((group: string) => (
+                                <option key={group} value={group}>
+                                  {group}
+                                </option>
+                              ))}
+                            </select>
+                          )}
                         </div>
                         
                         {/* PK Elements Table */}
@@ -519,16 +549,16 @@ function App() {
                               </thead>
                               <tbody>
                                 {filteredPkElements.map((element: any) => (
-                                  <tr key={element.pk_code}>
-                                    <td>{element.pk_code}</td>
-                                    <td>{element.x_element}</td>
-                                    <td>{element.cobie_category}</td>
-                                    <td>{element.lod}</td>
+                                  <tr key={element.pk}>
+                                    <td>{element.pk}</td>
+                                    <td>{element.name}</td>
+                                    <td>{element.cat}</td>
+                                    <td>{element.unit}</td>
                                     <td>
                                       <input
                                         type="text"
-                                        value={element.user_value}
-                                        onChange={(e) => handlePkElementValueChange(element.pk_code, e.target.value)}
+                                        value={element.user_value || ''}
+                                        onChange={(e) => handlePkElementValueChange(element.pk, e.target.value)}
                                         className="pk-value-input"
                                         placeholder="Ingrese valor..."
                                       />

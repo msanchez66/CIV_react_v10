@@ -1876,7 +1876,6 @@ body {
   font-weight: 600;
   margin: 20px 0 15px 0;
   padding-bottom: 8px;
-  border-bottom: 3px solid #3498db;
 }
 
 .pk-infrastructure-type {
@@ -1960,6 +1959,17 @@ body {
 .pk-value-input::placeholder {
   color: #999;
   font-style: italic;
+}
+
+.pk-loading {
+  padding: 10px;
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
 }
 
 /* No Segment Selected Placeholder */
@@ -2433,7 +2443,6 @@ body {
   font-weight: 600;
   margin: 20px 0 15px 0;
   padding-bottom: 8px;
-  border-bottom: 3px solid #3498db;
 }
 
 .pk-infrastructure-type {
@@ -2517,4 +2526,15 @@ body {
 .pk-value-input::placeholder {
   color: #999;
   font-style: italic;
+}
+
+.pk-loading {
+  padding: 10px;
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
 }
