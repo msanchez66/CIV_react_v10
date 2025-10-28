@@ -1,0 +1,167 @@
+{
+  "fields": [
+    {
+      "id": 1,
+      "name": "segment_id",
+      "label": "Segment Id",
+      "type": "text"
+    },
+    {
+      "id": 2,
+      "name": "root_code",
+      "label": "Root Code",
+      "type": "text"
+    },
+    {
+      "id": 3,
+      "name": "street_name",
+      "label": "Street Name",
+      "type": "text"
+    },
+    {
+      "id": 4,
+      "name": "plain_name",
+      "label": "Plain Name",
+      "type": "text"
+    },
+    {
+      "id": 5,
+      "name": "type_name",
+      "label": "Type Name",
+      "type": "text"
+    },
+    {
+      "id": 6,
+      "name": "road_type",
+      "label": "Road Type",
+      "type": "text"
+    },
+    {
+      "id": 7,
+      "name": "highway_type",
+      "label": "Highway Type",
+      "type": "text"
+    },
+    {
+      "id": 8,
+      "name": "barrio",
+      "label": "Barrio",
+      "type": "text"
+    },
+    {
+      "id": 9,
+      "name": "sector",
+      "label": "Sector",
+      "type": "text"
+    },
+    {
+      "id": 10,
+      "name": "municipality",
+      "label": "Municipality",
+      "type": "text"
+    },
+    {
+      "id": 11,
+      "name": "start_lat",
+      "label": "Start Lat",
+      "type": "number"
+    },
+    {
+      "id": 12,
+      "name": "start_lon",
+      "label": "Start Lon",
+      "type": "number"
+    },
+    {
+      "id": 13,
+      "name": "end_lat",
+      "label": "End Lat",
+      "type": "number"
+    },
+    {
+      "id": 14,
+      "name": "end_lon",
+      "label": "End Lon",
+      "type": "number"
+    },
+    {
+      "id": 15,
+      "name": "length_m",
+      "label": "Length M",
+      "type": "number"
+    },
+    {
+      "id": 16,
+      "name": "lanes",
+      "label": "Lanes",
+      "type": "integer"
+    },
+    {
+      "id": 17,
+      "name": "width_lane",
+      "label": "Width Lane",
+      "type": "number"
+    },
+    {
+      "id": 18,
+      "name": "seg_area",
+      "label": "Seg Area",
+      "type": "number"
+    },
+    {
+      "id": 19,
+      "name": "oneway",
+      "label": "Oneway",
+      "type": "boolean"
+    },
+    {
+      "id": 20,
+      "name": "surface",
+      "label": "Surface",
+      "type": "text"
+    },
+    {
+      "id": 21,
+      "name": "is_artificial_split",
+      "label": "Is Artificial Split",
+      "type": "boolean"
+    },
+    {
+      "id": 22,
+      "name": "merged_short",
+      "label": "Merged Short",
+      "type": "boolean"
+    },
+    {
+      "id": 23,
+      "name": "num_geometry_points",
+      "label": "Num Geometry Points",
+      "type": "integer"
+    }
+  ],
+  "sample_data": {
+    "segment_id": "DNX-00107016-01-000000",
+    "root_code": "DNX-00107016-01",
+    "street_name": "Autopista 30 de Mayo",
+    "plain_name": "30 de Mayo",
+    "type_name": "Autopista",
+    "road_type": "AU",
+    "highway_type": "trunk",
+    "barrio": "Costa Caribe",
+    "sector": "",
+    "municipality": "Santo Domingo",
+    "start_lat": "18.4242612",
+    "start_lon": "-69.9878011",
+    "end_lat": "18.4351046",
+    "end_lon": "-69.944142",
+    "length_m": "4760.895831056943",
+    "lanes": "3.0",
+    "width_lane": "4.0",
+    "seg_area": "57130.8",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "is_artificial_split": "True",
+    "merged_short": "False",
+    "num_geometry_points": "12"
+  }
+}

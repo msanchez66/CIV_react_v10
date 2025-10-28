@@ -23,6 +23,10 @@ function App() {
   const [selectedElementGroup, setSelectedElementGroup] = useState<string>('');
   const [filteredPkElements, setFilteredPkElements] = useState<any[]>([]);
   const [pkDataLoading, setPkDataLoading] = useState<boolean>(false);
+  const [basicInfoData, setBasicInfoData] = useState<any>(null);
+  const [basicInfoLoading, setBasicInfoLoading] = useState<boolean>(false);
+  const [segmentBasicInfo, setSegmentBasicInfo] = useState<any>(null);
+  const [basicInfoScrollPosition, setBasicInfoScrollPosition] = useState<number>(0);
 
   // Debug: Log when selectedSegment changes
   useEffect(() => {
@@ -62,12 +66,37 @@ function App() {
     }
   }, [pkData]);
 
+  // Load basic info data
+  const loadBasicInfoData = useCallback(async () => {
+    if (basicInfoData) return basicInfoData;
+    
+    setBasicInfoLoading(true);
+    try {
+      const response = await fetch('/basic_segment_info.json');
+      const data = await response.json();
+      setBasicInfoData(data);
+      return data;
+    } catch (err) {
+      console.error('Error loading basic info data:', err);
+      return null;
+    } finally {
+      setBasicInfoLoading(false);
+    }
+  }, [basicInfoData]);
+
   // Preload PK data when complementaria action is selected
   useEffect(() => {
     if (selectedAction === 'complementaria' && !pkData && !pkDataLoading) {
       loadPkData();
     }
   }, [selectedAction, pkData, pkDataLoading, loadPkData]);
+
+  // Preload basic info data when actualizar action is selected
+  useEffect(() => {
+    if (selectedAction === 'actualizar' && !basicInfoData && !basicInfoLoading) {
+      loadBasicInfoData();
+    }
+  }, [selectedAction, basicInfoData, basicInfoLoading, loadBasicInfoData]);
 
   // Handle segment click
   const handleSegmentClick = useCallback((segment: Segment) => {
@@ -306,6 +335,27 @@ function App() {
       )
     );
   }, []);
+
+  // Handle basic info value change
+  const handleBasicInfoValueChange = useCallback((fieldName: string, value: string) => {
+    setSegmentBasicInfo(prev => ({
+      ...prev,
+      [fieldName]: value
+    }));
+  }, []);
+
+  // Update segment basic info when selectedSegment changes
+  useEffect(() => {
+    if (selectedSegment && basicInfoData) {
+      // Create basic info object from selected segment
+      const basicInfo: any = {};
+      basicInfoData.fields.forEach((field: any) => {
+        const value = selectedSegment[field.name];
+        basicInfo[field.name] = value !== undefined ? String(value) : '';
+      });
+      setSegmentBasicInfo(basicInfo);
+    }
+  }, [selectedSegment, basicInfoData]);
 
   // Handle menu change and clear searches
   const handleMenuChange = useCallback((menu: string) => {
@@ -568,6 +618,81 @@ function App() {
                               </tbody>
                             </table>
                           </div>
+                        )}
+                      </>
+                    )}
+                    
+                    {/* Basic Information Section - only show when "Información básica" is selected */}
+                    {selectedAction === 'actualizar' && (
+                      <>
+                        {/* Basic Information Title */}
+                        <h4 className="basic-info-title">Información Básica</h4>
+                        
+                        {/* Basic Information Table */}
+                        {basicInfoLoading ? (
+                          <div className="basic-info-loading">Cargando datos...</div>
+                        ) : basicInfoData && segmentBasicInfo ? (
+                          <div className="basic-info-table-container">
+                            <div className="basic-info-scroll-container">
+                              <table className="basic-info-table">
+                                <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Item</th>
+                                    <th>Valor</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {basicInfoData.fields.map((field: any) => (
+                                    <tr key={field.id}>
+                                      <td className="field-number">{field.id}</td>
+                                      <td className="field-label">{field.label}</td>
+                                      <td className="field-value">
+                                        {field.type === 'boolean' ? (
+                                          <select
+                                            value={segmentBasicInfo[field.name] || ''}
+                                            onChange={(e) => handleBasicInfoValueChange(field.name, e.target.value)}
+                                            className="basic-info-input"
+                                          >
+                                            <option value="">Seleccionar...</option>
+                                            <option value="true">Sí</option>
+                                            <option value="false">No</option>
+                                          </select>
+                                        ) : (
+                                          <input
+                                            type={field.type === 'number' ? 'number' : field.type === 'integer' ? 'number' : 'text'}
+                                            value={segmentBasicInfo[field.name] || ''}
+                                            onChange={(e) => handleBasicInfoValueChange(field.name, e.target.value)}
+                                            className="basic-info-input"
+                                            placeholder={`Ingrese ${field.label.toLowerCase()}...`}
+                                          />
+                                        )}
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                            
+                            {/* Scroll slider for long lists */}
+                            {basicInfoData.fields.length > 10 && (
+                              <div className="basic-info-scroll-controls">
+                                <input
+                                  type="range"
+                                  min="0"
+                                  max={Math.max(0, basicInfoData.fields.length - 10)}
+                                  value={basicInfoScrollPosition}
+                                  onChange={(e) => setBasicInfoScrollPosition(parseInt(e.target.value))}
+                                  className="basic-info-scroll-slider"
+                                />
+                                <div className="scroll-info">
+                                  Mostrando {basicInfoScrollPosition + 1}-{Math.min(basicInfoScrollPosition + 10, basicInfoData.fields.length)} de {basicInfoData.fields.length} campos
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="basic-info-no-data">No hay datos disponibles</div>
                         )}
                       </>
                     )}
